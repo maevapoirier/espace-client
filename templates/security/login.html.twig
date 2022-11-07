@@ -1,0 +1,43 @@
+
+
+{% block title %}Connexion
+{% endblock %}
+
+{% block body %}
+
+<div class="formContainer">
+	<div class="sliderSection">
+		<img src="../../assets/img/istockphoto-1338856909-1024x1024.jpg" alt="Espace client">
+	</div>
+	<div class="container-fluid p-5 bg-light d-flex justify-content-center align-items-center h-100">
+		<form method="post" class="bg-white border p-5 d-flex flex-column">
+			{% if error %}
+				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
+
+			{# {% if app.user %}
+				<div class="mb-3">
+					You are logged in as
+					{{ app.user.username }},
+					<a href="{{ path('app_logout') }}">Logout</a>
+				</div>
+			{% endif %} #}
+			
+
+			<h1 class="h3 mb-3 font-weight-normal text-center">Connexion</h1>
+			<label for="inputEmail">Email</label>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Adresse e-mail" required autofocus>
+			<label class="mt-2" for="inputPassword">Mot de passe</label>
+			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
+
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+			<button class="my-2 btn btn-lg btn-primary btn-block text-white" type="submit">
+				Connexion
+			</button>
+			<a class="mt-2" href="{{ azuracom_api_url }}/reset-password">Mot de passe oublié ?</a>
+		</form>
+	</div>
+
+</div>
+{% endblock %}

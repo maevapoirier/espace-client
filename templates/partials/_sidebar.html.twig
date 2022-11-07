@@ -1,0 +1,23 @@
+<h2 class="client-area">Espace Client</h2>
+{% if app.user %}
+	<div
+		class="user">
+		{# TODO : afficher les prenom et nom #}
+		{{ app.user.username }},
+	</div>
+{% endif %}
+
+<nav class="nav">
+	<ul>
+		<li><a href="#">Tableau de bord</a></li>
+		<li><a href="#">Mon profil</a></li>
+		<li><a href="#">Mes documents</a></li>
+		<li><a href="#">Mes projets</a></li>
+		<li><a href="#">Assistance</a></li>
+	</ul>
+
+</nav>
+
+<div>
+	<a href="{{ path('app_logout') }}">Déconnexion</a>
+</div>

@@ -1,5 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    
+    globals:
+        azuracom_api_url: "%env(resolve:AZURACOM_API_URL)%"
 
 when@test:
     twig:

@@ -1,5 +1,62 @@
-body {
-    background-color: lightgray;
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "components/header.scss";
+@import "components/sidebar.scss";
+@import "components/footer.scss";
+@import "colors/colors.scss";
 
-    //essai
+body {
+  background-color: white;
+    
+} 
+
+* {
+  list-style: none;
+  text-decoration: none;
+}
+
+.sidebar{
+  position: fixed;
+  left: 0;
+  background: whitesmoke;
+  width: 20vw;
+  min-width: 235px;
+  padding: 20px;
+  height: 100vh;
+  display:none;
+  color: var(--secondary-ligth-grey);
+
+  @media screen and (min-width: 992px) {
+    display:block;
+    position: relative;
+  }
+}
+
+.sidebar ul li{
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 20px;
+  
+}
+
+ul li:hover a {
+
+  padding-left: 9px;
+
+}
+
+.sidebar ul a{
+  color: var(--secondary-ligth-grey);
+  transition: .4s;
+}
+
+.main {
+  min-height: 97vh;
+  width: 100%;
+  position: relative;
+}
+
+.main > * {
+    padding-left: 30px;
 }
