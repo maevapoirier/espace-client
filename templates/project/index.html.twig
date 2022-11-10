@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Espace Client Azuracom
+{% endblock %}
+{% set title = "Mes projets" %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-6">
+			{% for project in projects %}
+				<div class="card mb-2">
+					<div class="card-body">
+						<h5 class="card-title">{{project.name}}</h5>
+                        <img class="col" src="{ asset("../../assets/img/mini-logoipsum.jpg") }" alt="logo client">
+						<p class="card-text">Statut du projet</p>
+						<a href="#" class="btn btn-primary">Envoyer des médias</a>
+                        <a href="#" class="btn btn-primary">Consulter les maquettes</a>
+                        <a href="#" class="btn btn-primary">Statistiques SEO</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

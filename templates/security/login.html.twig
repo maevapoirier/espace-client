@@ -1,43 +1,62 @@
+{% extends 'base.html.twig' %}
 
-
-{% block title %}Connexion
+{% block title %}Connexion espace client
 {% endblock %}
 
 {% block body %}
 
-<div class="formContainer">
-	<div class="sliderSection">
-		<img src="../../assets/img/istockphoto-1338856909-1024x1024.jpg" alt="Espace client">
-	</div>
-	<div class="container-fluid p-5 bg-light d-flex justify-content-center align-items-center h-100">
-		<form method="post" class="bg-white border p-5 d-flex flex-column">
-			{% if error %}
-				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-			{% endif %}
 
-			{# {% if app.user %}
-				<div class="mb-3">
-					You are logged in as
-					{{ app.user.username }},
-					<a href="{{ path('app_logout') }}">Logout</a>
+	{# {% if app.user %}
+					<div class="mb-3">
+						You are logged in as
+						{{ app.user.username }},
+						<a href="{{ path('app_logout') }}">Logout</a>
+					</div>
+				{% endif %} #}
+
+
+	
+
+
+		<section class="vh-100"> <div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center">
+				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+					<div class="card text-white bg-custom" style="border-radius: 1rem;">
+						<div class="card-body p-5 text-center">
+
+							<div>
+
+								<h1 class="h2 fw-bold mb-2 text-uppercase">Espace client
+									<br>Connexion</h1>
+
+								<p class="text-white mb-3">Entrez vos identifiant et mot de passe</p>
+
+								{% if error %}
+									<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+								{% endif %}
+								<form method="post">
+									<div class="form-floating label-color mb-3">
+										<input type="email" class="form-control" value="{{ last_username }}" name="email" id="floatingInputValue" autocomplete="email" placeholder="e-mail@mail.com" required>
+										<label for="floatingInputValue">Email</label>
+									</div>
+									<div class="form-floating label-color mb-3">
+										<input type="password" class="form-control" name="password" id="floatingPassword" autocomplete="current-password" placeholder="Mot de passe" required>
+										<label for="floatingPassword">Mot de passe</label>
+									</div>
+
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+									<button class="btn btn-outline-light btn-md px-5 mb-1" type="submit">
+										Connexion
+									</button>
+									<p class="small mb-3 pb-lg-2 reset-password"><a class="text-white" href="{{ azuracom_api_url }}/reset-password">Mot de passe oublié ?</a></p>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
-			{% endif %} #}
-			
+			</div>
+		</div>
+	</section>
 
-			<h1 class="h3 mb-3 font-weight-normal text-center">Connexion</h1>
-			<label for="inputEmail">Email</label>
-			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Adresse e-mail" required autofocus>
-			<label class="mt-2" for="inputPassword">Mot de passe</label>
-			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
-
-			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-			<button class="my-2 btn btn-lg btn-primary btn-block text-white" type="submit">
-				Connexion
-			</button>
-			<a class="mt-2" href="{{ azuracom_api_url }}/reset-password">Mot de passe oublié ?</a>
-		</form>
-	</div>
-
-</div>
 {% endblock %}

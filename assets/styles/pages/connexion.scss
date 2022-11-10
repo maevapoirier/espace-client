@@ -1,0 +1,26 @@
+section {
+    background-color: lightgray;
+}
+
+.bg-custom {
+    background: var(--main-blue);
+}
+
+.label-color {
+    color: gray !important;
+}
+
+.reset-password {
+    font-size: x-small;
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: var(--main-blue);
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, var(--main-blue), var(--main-pink));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, var(--main-blue), var(--main-pink))
+    }

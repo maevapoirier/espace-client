@@ -7,6 +7,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     padding-left: 30px;
+    margin-left: 5px;
     
     @media all and (max-width: 650px) {
         background-size: contain;
@@ -16,14 +17,11 @@ h1 {
     color: var(--secondary-dark-grey);
 }
 
-.close-menu{
+.open-menu{
+    z-index: 5;
     position: fixed;
-    left: 30px;
-    top: 0px;
-    font-size: 2rem;
-    color: var(--secondary-dark-grey);
-
-    @media screen and (min-width: 992px) {
-        display:none;
-      }
+    right: 25px;
+    top: 40px;
+    color: var(--secondary-ligth-grey)!important;
 }
+
