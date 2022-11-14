@@ -175,7 +175,7 @@ body .card .card-body .card-title {
 }
 
 #SEO {
-  min-height: 250px;
+  min-height: 400px;
   background-image: url("../img/istockphoto-1338856909-1024x1024.jpg");
   background-position: center ;
   background-repeat: no-repeat;
@@ -186,3 +186,19 @@ body .card .card-body .card-title {
   font-weight: bold;
   color : white;
 }
+
+.ws-block {
+  font-size: small;
+  display: none;
+
+  &.open {
+    display: block;
+  }
+
+}
+
+section {
+  background-color: white!important;
+  padding: 0;
+}
+

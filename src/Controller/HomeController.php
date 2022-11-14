@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Context\ClientContext;
 use Azuracom\ApiSdkBundle\ApiClient\MaintenanceNotebookApi;
 use Azuracom\ApiSdkBundle\ApiClient\ProjectApi;
+use Azuracom\ApiSdkBundle\ApiClient\WorkingSessionApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,8 @@ class HomeController extends AbstractController
     public function index(
         ProjectApi $projectApi,
         ClientContext $clientContext,
-        MaintenanceNotebookApi $maintenanceNotebookApi
+        MaintenanceNotebookApi $maintenanceNotebookApi,
+        WorkingSessionApi $workingSessionApi,
         ): Response
     {
 
@@ -33,7 +35,16 @@ class HomeController extends AbstractController
                 "enabled" => true]]
         );
 
-        //dd($currentMaintenanceNotebook);
+        $workingSessions = $workingSessionApi->getListItems(
+            null,
+            ['query'=>[
+                'id' => $currentMaintenanceNotebook[0]['id'],
+                'page' => 1,
+                'itemsPerPage' => 100]]
+        );
+
+        //dd($projects);
+        //dd($currentMaintenanceNotebook[0]['id']);
 
     
         //dd($clientApi->get($this->getUser()->getConfig()["client"]));
@@ -41,7 +52,8 @@ class HomeController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'projects' => $projects,
-            'maintenanceNotebook' => $currentMaintenanceNotebook[0]
+            'maintenanceNotebook' => $currentMaintenanceNotebook[0],
+            'workingSessions' => $workingSessions
         ]);
     }
 }

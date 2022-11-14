@@ -3,13 +3,10 @@
 {% block title %}Espace Client Azuracom
 {% endblock %}
 {% set title = "Tableau de bord" %}
-{% set mnRemaningHour = maintenanceNotebook.nbOrder - maintenanceNotebook.nbConsume %}
-{% set mnRemainingHourPercent = mnRemaningHour * 100 / maintenanceNotebook.nbOrder %}
 
 {% block content %}
-
-	<div class="row">
-		<div class="col-lg-6">
+	<section class="row">
+		<div class="col-lg-8">
 			<div class="card mt-3">
 				<div class="card-body">
 					<h5 class="card-title">Mes projets</h5>
@@ -22,89 +19,126 @@
 							</tr>
 						{% endfor %}
 					</table>
-
-
 					<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
 				</div>
 			</div>
-		</div>
-    <div class="col-lg-6">
-			<div class="card mt-3">
-				<div class="card-body">
-					<h5 class="card-title">Mon agence</h5>
-					<div class="row">
-          <div class="col">
-						<img class="img-fluid" src="{{ asset("build/images/maps.jpg") }}" alt="pour nous situer"></div>
-						<div class="col">
-							<p class="card-text">Technopôle Agroparc<br>
-								Le Victoria – C01<br>149, Rue Jean Dausset<br>84140 Avignon</p>
-							<p>du Lundi au Vendredi
-								<br>de 9h à 12h30 et de 14h à 18h</p>
-							<p class="fs-6 contact">Votre contact :<br>
-								M.
-								{{projects[0].technicalOfficer.firstname}}
-								{{projects[0].technicalOfficer.lastname}}
-								<br>
-								Tel : 04 86 40 84 28
-								<br>
-								Email :
-								{{projects[0].technicalOfficer.email}}</p>
-                <div class="container">
-                <div class="row justify-content-end">
-                <a class="col" href="https://www.linkedin.com/company/azuracom/">
-								<i class="fa-brands fa-linkedin-in"></i>
-							</a>
-							<a  class="col" href="https://fr-fr.facebook.com/agence.azuracom/">
-								<i class="fa-brands fa-facebook-f"></i>
-							</a>
-							<a  class="col" href="https://www.instagram.com/agenceazuracom/?hl=fr">
-								<i class="fa-brands fa-instagram"></i></i>
-						</a>
-            </div>
-            </div>
-							
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-		<div class="col-lg-6">
+			
+
+			
 			<div class="card mt-3 ">
 				<div class="card-body">
 					<h5 class="card-title">Carnet de maintenance</h5>
 					<div class="progress mb-2">
-						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ mnRemainingHourPercent }}%" aria-valuenow="{{ mnRemainingHourPercent }}" aria-valuemin="0" aria-valuemax="100"></div>
+						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}%" aria-valuenow="{{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
-					<p>
-						<a href="#">{{ mnRemaningHour }}
-							heures restantes /{{ maintenanceNotebook.nbOrder }}h</a>
-					</p>
-					<p>Validité :
-						{{ maintenanceNotebook.dateEnd | date("d/m/Y") }}</p>
+					<div>
+						<a href="#" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
+								heures restantes /{{ maintenanceNotebook.nbOrder }}h</a>
+					</div>
+						<p>Validité :
+							{{ maintenanceNotebook.dateEnd | date("d/m/Y") }}</p>
+
+					<div class="ws-block">
+						<h6>Sessions de travail</h6>
+						<table class="table table-hover">
+							<tr>
+								<th>Date</th>
+								<th>Projet</th>
+								<th>Référent technique</th>
+								<th>Type</th>
+								<th>Description</th>
+								<th>Durée en heures</th>
+							</tr>
+								{% for workingSession in workingSessions %}
+									<tr>
+										<td>{{ workingSession.date | date("d/m/Y") }}</td>
+										<td>{{ workingSession.project.name }}</td>
+										<td>{{ workingSession.user.firstname }}
+											{{ workingSession.user.lastname }}</td>
+										<td>{{ workingSession.type }}</td>
+										<td>{{ workingSession.description }}</td>
+										{% if workingSession.timeUnit == "hour" %}
+											<td>{{ workingSession.time }}</td>
+										{% endif %}
+										{% if workingSession.timeUnit == "adr" %}
+											<td>{{ workingSession.time | hour }}</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+						</table>
+
+					</div>
+
 					<a href="mailto:jmbrunier@azuracom.com" class="btn btn-primary">Recharger mon carnet</a>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6">
+		<aside class="col-lg-4">
 			<div class="card mt-3" id="SEO">
 				<div class="card-body" id="SEO">
 					<h5 class="card-title">OPERATION SEO</h5>
-					<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.
-					</p>
+					<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>
 					<button class="btn btn-primary text-end" data-bs-toggle="modal" data-bs-target="#exampleModal">Je m'inscris</button>
+				</div>
+			</div>
+		</aside>
+	</section>
+
+	<section>
+		<div class="col-lg-6">
+			<div class="card mt-3">
+				<div class="card-body">
+					<h5 class="card-title">Mon agence</h5>
+					<div class="row">
+						<div class="col">
+							<iframe class="img-fluid" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2874.051461025469!2d4.89036471578344!3d43.91690864335568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b5ee03cd2a4779%3A0x670ee5c8311295de!2sAzuracom%20Agence%20Web%20Avignon!5e0!3m2!1sfr!2sfr!4v1668426991961!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+							{# <img class="img-fluid" src="{{ asset("build/images/maps.jpg") }}" alt="pour nous situer"></div> #}
+							<div class="col">
+								<p class="card-text">Technopôle Agroparc<br>
+									Le Victoria – C01<br>149, Rue Jean Dausset<br>84140 Avignon</p>
+								<p>du Lundi au Vendredi
+									<br>de 9h à 12h30 et de 14h à 18h</p>
+								<p class="fs-6 contact">Votre contact :<br>
+									M.
+									{{projects[0].technicalOfficer.firstname}}
+									{{projects[0].technicalOfficer.lastname}}
+									<br>
+									Tel : 04 86 40 84 28
+									<br>
+									Email :
+									{{projects[0].technicalOfficer.email}}</p>
+								<div class="container">
+									<div class="row justify-content-end">
+										<a class="col" href="https://www.linkedin.com/company/azuracom/">
+											<i class="fa-brands fa-linkedin-in"></i>
+										</a>
+										<a class="col" href="https://fr-fr.facebook.com/agence.azuracom/">
+											<i class="fa-brands fa-facebook-f"></i>
+										</a>
+										<a class="col" href="https://www.instagram.com/agenceazuracom/?hl=fr">
+											<i class="fa-brands fa-instagram"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
-		
-	<div class="col-lg-6">
-		<div class="card mt-3">
-			<div class="card-body">
-				<h5 class="card-title">Actualités</h5>
-				<p class="card-text">Lorem ipsum dolor sit amet. Qui voluptatem maiores sed similique eius quo impedit libero non voluptatem molestiae eos laboriosam quae aut voluptatibus eveniet rem illum ipsam. 33 eaque odio aut illo consequatur et rerum veritatis vel temporibus tempora et autem officiis vel dolore aspernatur ut accusantium quis.
-				</p>
-				<a href="#" class="btn btn-primary">Go somewhere</a>
+
+			<div class="col-lg-6">
+				<div class="card mt-3">
+					<div class="card-body">
+						<h5 class="card-title">Actualités</h5>
+						<p class="card-text">Lorem ipsum dolor sit amet. Qui voluptatem maiores sed similique eius quo impedit libero non voluptatem molestiae eos laboriosam quae aut voluptatibus eveniet rem illum ipsam. 33 eaque odio aut illo consequatur et rerum veritatis vel temporibus tempora et autem officiis vel dolore aspernatur ut accusantium quis.
+						</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-</div>{% endblock %}
+		
+
+		</section>
+	{% endblock %}

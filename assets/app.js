@@ -13,3 +13,4 @@ import './bootstrap';
 
 
 import './scripts/menu';
+import './scripts/workingSessions';
