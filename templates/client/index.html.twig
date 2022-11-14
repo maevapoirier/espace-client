@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Espace Client Azuracom{% endblock %}
+{% set title = "Mon profil" %}
+
+{% block content %}
+
+<div class="card mb-3" style="width: 50rem;">
+  <div class="card-body">
+    <h5 class="card-title">Mes informations personnelles</h5>
+    
+    <p class="card-text">Nom : {{app.user.lastName}} {{app.user.firstName}} <br> 
+    Société : {{client_context.data.name}} <br>
+    Adresse : <br>
+    Téléphone : <br>
+    login : {{app.user.username}} <br>
+    Mot de passe : *********
+    </p>
+    <a class="text-white btn btn-primary" href="{{ azuracom_api_url }}/reset-password">Réinitialiser mon mot de passe</a>
+    
+  </div>
+</div>
+
+<div class="card" style="width: 50rem;">
+  <div class="card-body">
+    <h5 class="card-title">Mes notifications</h5>
+    <p class="card-text">
+    </p>
+    
+  </div>
+</div>
+
+{% endblock %}

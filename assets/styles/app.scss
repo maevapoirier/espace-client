@@ -6,6 +6,7 @@
 @import "pages/connexion.scss";
 @import "colors/colors.scss";
 
+
 body {
   background-color: white;
     
@@ -165,4 +166,23 @@ main {
 
 .avatar {
   width: 80px;
+}
+
+body .card .card-body .card-title {
+  font-size: x-large;
+  font-weight: bold;
+  color : var(--main-blue);
+}
+
+#SEO {
+  min-height: 250px;
+  background-image: url("../img/istockphoto-1338856909-1024x1024.jpg");
+  background-position: center ;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#SEO h5, #SEO p {
+  font-weight: bold;
+  color : white;
 }
