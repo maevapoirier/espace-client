@@ -20,6 +20,7 @@ security:
                 path: app_logout
             remember_me:
                 secret:   '%kernel.secret%' # required
+                lifetime: 604800 #1 week in seconds
             custom_authenticator: Azuracom\ApiSdkBundle\Security\ApiAuthenticator
     
     # Easy way to control access for large sections of your site

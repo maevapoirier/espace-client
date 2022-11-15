@@ -6,16 +6,18 @@
 
 {% block content %}
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-12">
 			{% for project in projects %}
 				<div class="card mb-2">
 					<div class="card-body">
 						<h5 class="card-title">{{project.name}}</h5>
                         <img class="col" src="{{ asset("build/images/mini-logoipsum.jpg") }}" alt="logo client">
 						<p class="card-text">Statut du projet</p>
-						<a href="#" class="btn btn-primary">Envoyer des médias</a>
-                        <a href="#" class="btn btn-primary">Consulter les maquettes</a>
-                        <a href="#" class="btn btn-primary">Statistiques SEO</a>
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+							<a href="#" class="btn btn-primary">Envoyer des médias</a>
+							<a href="#" class="btn btn-primary">Consulter les maquettes</a>
+							<a href="#" class="btn btn-primary">Statistiques SEO</a>
+						</div>
 					</div>
 				</div>
 			{% endfor %}

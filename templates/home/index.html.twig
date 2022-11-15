@@ -19,7 +19,9 @@
 							</tr>
 						{% endfor %}
 					</table>
-					<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
+					</div>
 				</div>
 			</div>
 			
@@ -68,8 +70,9 @@
 						</table>
 
 					</div>
-
-					<a href="mailto:jmbrunier@azuracom.com" class="btn btn-primary">Recharger mon carnet</a>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<a href="mailto:jmbrunier@azuracom.com" class="btn btn-primary">Recharger mon carnet</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -77,68 +80,80 @@
 			<div class="card mt-3" id="SEO">
 				<div class="card-body" id="SEO">
 					<h5 class="card-title">OPERATION SEO</h5>
-					<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>
-					<button class="btn btn-primary text-end" data-bs-toggle="modal" data-bs-target="#exampleModal">Je m'inscris</button>
+					<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>	
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+						<button class="btn btn-primary text-end">Je m'inscris</button>
+					</div>
 				</div>
 			</div>
 		</aside>
 	</section>
 
-	<section>
-		<div class="col-lg-6">
+	<section class="row">
+		<div class="col-xl-6">
 			<div class="card mt-3">
 				<div class="card-body">
 					<h5 class="card-title">Mon agence</h5>
 					<div class="row">
-						<div class="col">
-							<iframe class="img-fluid" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2874.051461025469!2d4.89036471578344!3d43.91690864335568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b5ee03cd2a4779%3A0x670ee5c8311295de!2sAzuracom%20Agence%20Web%20Avignon!5e0!3m2!1sfr!2sfr!4v1668426991961!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-							{# <img class="img-fluid" src="{{ asset("build/images/maps.jpg") }}" alt="pour nous situer"></div> #}
-							<div class="col">
-								<p class="card-text">Technopôle Agroparc<br>
-									Le Victoria – C01<br>149, Rue Jean Dausset<br>84140 Avignon</p>
-								<p>du Lundi au Vendredi
-									<br>de 9h à 12h30 et de 14h à 18h</p>
-								<p class="fs-6 contact">Votre contact :<br>
-									M.
-									{{projects[0].technicalOfficer.firstname}}
-									{{projects[0].technicalOfficer.lastname}}
-									<br>
-									Tel : 04 86 40 84 28
-									<br>
-									Email :
-									{{projects[0].technicalOfficer.email}}</p>
-								<div class="container">
-									<div class="row justify-content-end">
-										<a class="col" href="https://www.linkedin.com/company/azuracom/">
-											<i class="fa-brands fa-linkedin-in"></i>
-										</a>
-										<a class="col" href="https://fr-fr.facebook.com/agence.azuracom/">
-											<i class="fa-brands fa-facebook-f"></i>
-										</a>
-										<a class="col" href="https://www.instagram.com/agenceazuracom/?hl=fr">
-											<i class="fa-brands fa-instagram"></i>
-										</a>
-									</div>
+						<div class="map-responsive">
+							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4833.652926280654!2d4.891697805011862!3d43.91575408722959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b5ee03cd2a4779%3A0x670ee5c8311295de!2sAzuracom%20Agence%20Web%20Avignon!5e0!3m2!1sfr!2sfr!4v1668503121138!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						</div>	
+							<p class="card-text">Technopôle Agroparc<br>
+							Le Victoria – C01<br>149, Rue Jean Dausset<br>84140 Avignon</p>
+							<p>du Lundi au Vendredi
+							<br>de 9h à 12h30 et de 14h à 18h</p>
+							<p class="fs-6 contact">Votre contact :<br>
+							M.
+							{{projects[0].technicalOfficer.firstname}}
+							{{projects[0].technicalOfficer.lastname}}
+							<br>
+							Tel : 04 86 40 84 28
+							<br>
+							Email :
+							{{projects[0].technicalOfficer.email}}</p>
+								<div class="social-network">
+									<a class="col" href="https://www.linkedin.com/company/azuracom/">
+										<i class="fa-brands fa-linkedin-in"></i>
+									</a>   
+									<a class="col" href="https://fr-fr.facebook.com/agence.azuracom/">
+										<i class="fa-brands fa-facebook-f"></i>
+									</a>   
+									<a class="col" href="https://www.instagram.com/agenceazuracom/?hl=fr">
+										<i class="fa-brands fa-instagram"></i>
+									</a>  
 								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
-			<div class="col-lg-6">
-				<div class="card mt-3">
-					<div class="card-body">
-						<h5 class="card-title">Actualités</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet. Qui voluptatem maiores sed similique eius quo impedit libero non voluptatem molestiae eos laboriosam quae aut voluptatibus eveniet rem illum ipsam. 33 eaque odio aut illo consequatur et rerum veritatis vel temporibus tempora et autem officiis vel dolore aspernatur ut accusantium quis.
-						</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
+		<div class="col-xl-6">
+			<div class="card mt-3">
+				<div class="card-body">
+					<h5 class="card-title">Actualités</h5>
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<td class="col-lg-6"><img class="img-fluid" src="{{ asset("build/images/azuracom-renforce-son-support-client.jpeg") }}" alt="support client"></td>
+								<td class="col-lg-6"><h6>Azuracom renforce son support client</h6> <p> Dans le cadre de notre démarche qualité et dans l’objectif de vous proposer un service plus rapide et efficace, nous avons le plaisir de vous annoncer la mise en place d’un service de maintenance ... </p>
+							</tr>
+							<tr>
+								<td class="col-lg-6"><img class="img-fluid" src="{{ asset("build/images/azuracom-recrute-une-integrateurrice-web.jpeg") }}" alt="support client"></td>
+								<td class="col-lg-6"><h6>Azuracom recherche un·e intégrateur·rice web</h6> <p>Notre agence digitale est jeune, dynamique et en forte croissance, installée au cœur du technopôle Agroparc à Avignon. <br>Vos missions :<br>
+								<ul>
+									<li>- Concevoir un site vitrine ou e-commerce ...</li>
+								</ul> 
+							</tr>
+						</tbody>
+					</table>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+						<a href="{{ path('app_news') }}" class="btn btn-primary">Toutes les actualités</a>
 					</div>
 				</div>
 			</div>
+		</div>
 		
 
-		</section>
+	</section>
 	{% endblock %}

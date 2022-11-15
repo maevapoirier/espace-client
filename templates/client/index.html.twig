@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<div class="card mb-3" style="width: 50rem;">
+<div class="card mb-3">
   <div class="card-body">
     <h5 class="card-title">Mes informations personnelles</h5>
     
@@ -16,12 +16,13 @@
     login : {{app.user.username}} <br>
     Mot de passe : *********
     </p>
-    <a class="text-white btn btn-primary" href="{{ azuracom_api_url }}/reset-password">Réinitialiser mon mot de passe</a>
-    
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+      <a class="text-white btn btn-primary" href="{{ azuracom_api_url }}/reset-password">Réinitialiser mon mot de passe</a>
+    </div>
   </div>
 </div>
 
-<div class="card" style="width: 50rem;">
+<div class="card">
   <div class="card-body">
     <h5 class="card-title">Mes notifications</h5>
     <p class="card-text">
