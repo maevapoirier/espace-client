@@ -43,7 +43,7 @@ class HomeController extends AbstractController
                 'itemsPerPage' => 100]]
         );
 
-        //dd($projects);
+        //dd($this->getUser());
         //dd($currentMaintenanceNotebook[0]['id']);
 
     
