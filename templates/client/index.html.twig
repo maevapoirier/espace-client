@@ -5,19 +5,30 @@
 
 {% block content %}
 
+
+	{% for label, messages in app.flashes(['success', 'danger']) %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
 <div class="card mb-3">
   <div class="card-body">
     <h5 class="card-title">Mes informations personnelles</h5>
     
-    <p class="card-text">Nom : {{app.user.lastName}} {{app.user.firstName}} <br> 
+    <p class="card-text">Nom : {{app.user.lastName}} <br>
+    Prénom : {{app.user.firstName}} <br> 
     Société : {{client_context.data.name}} <br>
-    Adresse : <br>
-    Téléphone : <br>
+    Adresse : {{client_context.data.description}}<br>
+    
     login : {{app.user.username}} <br>
     Mot de passe : *********
     </p>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
-      <a class="text-white btn btn-primary" href="#">Modifier</a>
+      <a class="text-white btn btn-primary" href="{{ path('app_client_update_password') }}">Modifier mon mot de passe</a><a class="text-white btn btn-primary" href="{{ path('app_client_update') }}">Modifier</a>
     </div>
   </div>
 </div>

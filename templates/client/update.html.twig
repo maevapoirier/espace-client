@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Espace Client Azuracom{% endblock %}
+{% set title = "Modifier mon profil" %}
+
+{% block content %}
+
+
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Mes informations personnelles</h5>
+    <div class="form-group">
+        {{ form_start(clientForm) }}
+
+        {{ form_label(clientForm.lastname) }}
+        {{ form_widget(clientForm.lastname, {'value' : app.user.lastName}) }}
+
+        {{ form_label(clientForm.firstname) }}
+        {{ form_widget(clientForm.firstname, {'value' : app.user.firstName}) }}
+
+        {{ form_label(clientForm.client_name) }}
+        {{ form_widget(clientForm.client_name, {'value' : client_context.data.name}) }}
+
+        {{ form_label(clientForm.address) }}
+        {{ form_widget(clientForm.address, {'value' : client_context.data.description}) }}
+
+        {{ form_label(clientForm.login) }}
+        {{ form_widget(clientForm.login, {'value' : app.user.username}) }}
+
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+            <button class="btn btn-primary">Enregistrer mes modifications</button>
+        </div>
+        {{ form_end(clientForm) }}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
