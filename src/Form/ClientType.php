@@ -31,6 +31,8 @@ class ClientType extends AbstractType
             ->add('password2', PasswordType::class, [
                 'label' => 'Confirmation mot de passe'
             ])
+
+            //test
         ;
     }
 
