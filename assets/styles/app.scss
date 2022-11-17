@@ -165,8 +165,12 @@ main {
   width: 200px;
 }
 
-.avatar {
+.mini-avatar {
   width: 80px;
+}
+
+.avatar {
+  max-width: 200 px;
 }
 
 body .card .card-body .card-title {

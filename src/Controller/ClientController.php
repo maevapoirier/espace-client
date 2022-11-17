@@ -4,17 +4,16 @@ namespace App\Controller;
 
 use App\Context\ClientContext;
 use App\Form\ClientType;
-use App\Form\UpdatePasswordType;
+use App\Form\FileType;
+use App\Form\EditPasswordType;
 use Azuracom\ApiSdkBundle\ApiClient\ClientApi;
+use Azuracom\ApiSdkBundle\ApiClient\MediaObjectApi;
 use Azuracom\ApiSdkBundle\ApiClient\SecurityApi;
 use Azuracom\ApiSdkBundle\ApiClient\UserApi;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ClientController extends AbstractController
 {
@@ -25,8 +24,8 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/modifierProfil', name: 'app_client_update')]
-    public function update(Request $request, UserApi $userApi, ClientApi $clientApi, ClientContext $clientContext): Response
+    #[Route('/modifierProfil', name: 'app_client_edit')]
+    public function edit(Request $request, UserApi $userApi, ClientApi $clientApi, ClientContext $clientContext): Response
     {
         $clientForm = $this->createForm(ClientType::class);
         $clientForm->handleRequest($request);
@@ -62,15 +61,15 @@ class ClientController extends AbstractController
             ]);
         }
 
-        return $this->render('client/update.html.twig', [
+        return $this->render('client/edit.html.twig', [
             'clientForm' => $clientForm->createView()
         ]);
     }
 
-    #[Route('/modifierMotDePasse', name: 'app_client_update_password')]
-    public function updatePassword(Request $request, SecurityApi $securityApi): Response
+    #[Route('/modifierMotDePasse', name: 'app_client_edit_password')]
+    public function editPassword(Request $request, SecurityApi $securityApi, UserApi $userApi): Response
     {
-        $passwordForm = $this->createForm(UpdatePasswordType::class);
+        $passwordForm = $this->createForm(EditPasswordType::class);
         $passwordForm->handleRequest($request);
         
 
@@ -78,12 +77,20 @@ class ClientController extends AbstractController
             $resultForm = $passwordForm->getData();
             if ( $resultForm['newPassword'] == $resultForm['newPassword2']
                 & $securityApi->loginCheck('app_client', $this->getUser()->getUserIdentifier(), $resultForm['oldPassword']) != false ) {
-
-                    // enregistrer le nouveau mot de passe
-                    $this->addFlash(
-                        'success',
-                        'Votre Mot de passe a bien été modifié.'
-                    );
+                    
+                    $result = $userApi->update(['password' => $resultForm['newPassword']], $this->getUser()->getId(), []);
+                    //dd($result);
+                    if ($result == true) {
+                        $this->addFlash(
+                            'success',
+                            'Votre Mot de passe a bien été modifié.'
+                        );
+                    } else {
+                        $this->addFlash(
+                            'danger',
+                            'Votre Mot de passe ne peut pas être modifié pour le moment. Contactez le support.'
+                        );
+                    }
 
                         return $this->redirectToRoute('app_client', []);
                         } else {
@@ -99,14 +106,32 @@ class ClientController extends AbstractController
                                 );
                             }
                                 
-                            return $this->render('client/updatePassword.html.twig', [
+                            return $this->render('client/editPassword.html.twig', [
                                 'passwordForm' => $passwordForm->createView()
                             ]);
                             }
         }
 
-        return $this->render('client/updatePassword.html.twig', [
+        return $this->render('client/editPassword.html.twig', [
             'passwordForm' => $passwordForm->createView()
         ]);
     }
+
+    #[Route('/modifier-image-profil', name: 'app_edit_avatar')]
+    public function editAvatar(Request $request, UserApi $userApi, MediaObjectApi $mediaObjectApi): Response
+    {
+        $form = $this->createForm(FileType::class);
+        $form->handleRequest($request);
+        $user = $userApi->get($this->getUser()->getId());
+
+        if ($form->isSubmitted() && $form->isValid() && $userApi->postForm($form, $this->getUser()->getId(), [])) {
+            $this->addFlash('success',"Votre image de profil a bien été modifiée.");
+            return $this->redirectToRoute('app_client');
+        }
+
+        return $this->render('client/editAvatar.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    
 }

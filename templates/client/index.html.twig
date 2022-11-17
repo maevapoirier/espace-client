@@ -18,17 +18,24 @@
 <div class="card mb-3">
   <div class="card-body">
     <h5 class="card-title">Mes informations personnelles</h5>
-    
-    <p class="card-text">Nom : {{app.user.lastName}} <br>
-    Prénom : {{app.user.firstName}} <br> 
-    Société : {{client_context.data.name}} <br>
-    Adresse : {{client_context.data.description}}<br>
-    
-    login : {{app.user.username}} <br>
-    Mot de passe : *********
-    </p>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
-      <a class="text-white btn btn-primary" href="{{ path('app_client_update_password') }}">Modifier mon mot de passe</a><a class="text-white btn btn-primary" href="{{ path('app_client_update') }}">Modifier</a>
+    <div class="row">
+      <div class="col-md-4"> 
+        <a href="{{ path('app_edit_avatar') }}" title="Modifier mon avatar"><img class ="avatar img-fluid rounded-circle" src="{{azuracom_api_url ~ app.user.avatar}}" alt="photo de profil"></a>
+      </div>
+      <div class="col-md-6">
+        <p class="col card-text">Nom : {{app.user.lastName}} <br>
+        Prénom : {{app.user.firstName}} <br> 
+        Société : {{client_context.data.name}} <br>
+        Adresse : {{client_context.data.description}}<br>
+        
+        login : {{app.user.username}} <br>
+        Mot de passe : *********
+        </p>
+        
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+          <a class="text-white btn btn-primary" href="{{ path('app_client_edit_password') }}">Modifier mon mot de passe</a><a class="text-white btn btn-primary" href="{{ path('app_client_edit') }}">Modifier</a>
+        </div>
     </div>
   </div>
 </div>

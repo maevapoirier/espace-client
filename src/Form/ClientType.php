@@ -27,7 +27,7 @@ class ClientType extends AbstractType
                 'label' => 'Adresse'
             ])
             ->add('login', TextType::class, [
-                'label' => 'Login'
+                'label' => 'identifiant de connexion'
             ])
                        
         ;

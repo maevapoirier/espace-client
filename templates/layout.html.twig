@@ -13,7 +13,7 @@
 					</div>
 					<div class="user-box">
 						{% if app.user %}
-						{# <div class="avatar col"><img src="{{azuracom_api_url ~ app.user.avatar}}" alt="photo de profil"></div> #}
+						<div class="col text-center"><img class ="mini-avatar rounded-circle" src="{{azuracom_api_url ~ app.user.avatar}}" alt="photo de profil"></div>
 						<div class="col">
 							<h5 class="user mb-5 text-center">
 								{{app.user.lastName}} {{app.user.firstName}}

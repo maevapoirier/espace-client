@@ -8,3 +8,7 @@ input, textarea {
     max-width: 50%;
     width: 350px;
 }
+
+label[for=file_avatar_base64] {
+    display: none;
+}
