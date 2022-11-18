@@ -1,0 +1,59 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Espace Client Azuracom
+{% endblock %}
+{% set title = "Mes anciens carnets" %}
+
+{% block content %}
+
+	{% for mn in maintenanceNotebooks %}
+		<div class="row">
+		    <div class="col-sm-12">
+                <div class="card mt-3 ">
+                    <div class="card-body">
+                        <h5 class="card-title">Du {{ mn.dateStart | date("d/m/Y") }} au {{ mn.dateEnd | date("d/m/Y") }}</h5>
+                        <div class="progress mt-3 mb-2">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ mn.nbConsume | percent(mn.nbOrder) }}%" aria-valuenow="{{ mn.nbConsume | percent(mn.nbOrder) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <p class="text-success"><strong>{{ mn.nbConsume }} heures utilisées /{{ mn.nbOrder }}h</strong></p>
+                        </div>
+
+                        <div>
+                            <h6>Sessions de travail</h6>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Projet</th>
+                                        <th>Référent technique</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Durée en heures</th>
+                                    </tr>
+                                        {% for workingSession in ws[mn.id] %}
+                                            <tr>
+                                                <td>{{ workingSession.date | date("d/m/Y") }}</td>
+                                                <td>{{ workingSession.project.name }}</td>
+                                                <td>{{ workingSession.user.firstname }}
+                                                    {{ workingSession.user.lastname }}</td>
+                                                <td>{{ workingSession.type }}</td>
+                                                <td>{{ workingSession.description }}</td>
+                                                {% if workingSession.timeUnit == "hour" %}
+                                                    <td>{{ workingSession.time }}</td>
+                                                {% endif %}
+                                                {% if workingSession.timeUnit == "adr" %}
+                                                    <td>{{ workingSession.time | hour }}</td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+			    </div>
+		    </div>
+        </div>
+	{% endfor %}
+
+{% endblock %}

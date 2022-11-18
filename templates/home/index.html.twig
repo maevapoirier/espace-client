@@ -5,20 +5,36 @@
 {% set title = "Tableau de bord" %}
 
 {% block content %}
+{# <pre>
+{{ dump(app.session.get('azuracom_api_token')) }}
+</pre> #}
+
+<div class="js-user"
+    data-user="{{ app.session.get('azuracom_api_token') }}">
+</div>
+<div class="js-client"
+	data-client="{{ clientId }}">
+</div>
+<div class="js-api"
+	data-api="{{ azuracom_api_url }}">
+</div>
+
 	<section class="row">
 		<div class="col-lg-8">
 			<div class="card mt-3">
 				<div class="card-body">
 					<h5 class="card-title">Mes projets</h5>
-					<table class="table table-hover">
-						{% for project in projects %}
-							<tr>
-								<td><img class="col" src="{{ asset("build/images/mini-logoipsum.jpg") }}" alt="logo client"></td>
-								<td>{{project.name}}</td>
-								<td>Statut du projet</td>
-							</tr>
-						{% endfor %}
-					</table>
+					<div class="table-responsive">
+						<table class="table table-hover">
+							{% for project in projects %}
+								<tr>
+									<td><img class="col" src="{{ asset("build/images/mini-logoipsum.jpg") }}" alt="logo client"></td>
+									<td>{{project.name}}</td>
+									<td>Statut du projet</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
 					</div>
@@ -34,55 +50,58 @@
 						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}%" aria-valuenow="{{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 					<div>
-						<a href="#!" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
-								heures restantes /{{ maintenanceNotebook.nbOrder }}h</a>
+						<button class="btn" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
+								heures restantes /{{ maintenanceNotebook.nbOrder }}h</button>
 					</div>
 						<p>Validité :
 							{{ maintenanceNotebook.dateEnd | date("d/m/Y") }}</p>
 
 					<div class="ws-block">
 						<h6>Sessions de travail</h6>
-						<table class="table table-hover">
-							<tr>
-								<th>Date</th>
-								<th>Projet</th>
-								<th>Référent technique</th>
-								<th>Type</th>
-								<th>Description</th>
-								<th>Durée en heures</th>
-							</tr>
-								{% for workingSession in workingSessions %}
-									<tr>
-										<td>{{ workingSession.date | date("d/m/Y") }}</td>
-										<td>{{ workingSession.project.name }}</td>
-										<td>{{ workingSession.user.firstname }}
-											{{ workingSession.user.lastname }}</td>
-										<td>{{ workingSession.type }}</td>
-										<td>{{ workingSession.description }}</td>
-										{% if workingSession.timeUnit == "hour" %}
-											<td>{{ workingSession.time }}</td>
-										{% endif %}
-										{% if workingSession.timeUnit == "adr" %}
-											<td>{{ workingSession.time | hour }}</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-						</table>
-
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<tr>
+									<th>Date</th>
+									<th>Projet</th>
+									<th>Référent technique</th>
+									<th>Type</th>
+									<th>Description</th>
+									<th>Durée en heures</th>
+								</tr>
+									{% for workingSession in workingSessions %}
+										<tr>
+											<td>{{ workingSession.date | date("d/m/Y") }}</td>
+											<td>{{ workingSession.project.name }}</td>
+											<td>{{ workingSession.user.firstname }}
+												{{ workingSession.user.lastname }}</td>
+											<td>{{ workingSession.type }}</td>
+											<td>{{ workingSession.description }}</td>
+											{% if workingSession.timeUnit == "hour" %}
+												<td>{{ workingSession.time }}</td>
+											{% endif %}
+											{% if workingSession.timeUnit == "adr" %}
+												<td>{{ workingSession.time | hour }}</td>
+											{% endif %}
+										</tr>
+									{% endfor %}
+							</table>
+						</div>
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<a href="mailto:jmbrunier@azuracom.com" class="btn btn-primary">Recharger mon carnet</a>
+						<a href="mailto:jmbrunier@azuracom.com" class="btn btn-primary">Recharger mon carnet</a><a href="{{ path('app_maintenance_notebook') }}" class="btn btn-primary">Mes anciens carnets</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<aside class="col-lg-4">
 			<div class="card mt-3" id="SEO">
-				<div class="card-body" id="SEO">
-					<h5 class="card-title">OPERATION SEO</h5>
-					<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>	
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
-						<button class="btn btn-primary text-end">Je m'inscris</button>
+				<div class="card-body d-flex flex-column justify-content-between" id="SEO">
+					<div>
+						<h5 class="card-title">OPERATION SEO</h5>
+						<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>	
+					</div>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<button class="btn btn-primary">Je m'inscris</button>
 					</div>
 				</div>
 			</div>

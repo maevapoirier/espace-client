@@ -8,12 +8,12 @@ use Azuracom\ApiSdkBundle\ApiClient\ProjectApi;
 use Azuracom\ApiSdkBundle\ApiClient\WorkingSessionApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class HomeController extends AbstractController
 {
-
-    
 
     #[Route('/', name: 'app_home')]
     public function index(
@@ -21,39 +21,47 @@ class HomeController extends AbstractController
         ClientContext $clientContext,
         MaintenanceNotebookApi $maintenanceNotebookApi,
         WorkingSessionApi $workingSessionApi,
+        Stopwatch $debugstopwatch
         ): Response
     {
 
-        
+        //$debugstopwatch->start('HomeController');
+
         $projects = $projectApi->getListItems(null, ['query'=>["client.id"=>$clientContext->getClientId()]]);
-        $currentMaintenanceNotebook = $maintenanceNotebookApi->getListItems(
+
+        //$debugstopwatch->lap('HomeController');
+
+        $maintenanceNotebook = $maintenanceNotebookApi->getListItems(
             null,
             ['query'=>[
                 'page' => 1,
                 'itemsPerPage' => 30,
                 "client.id"=>$clientContext->getClientId(),
-                "enabled" => true]]
+                "order[dateEnd]" => "desc"
+                ]]
         );
+
+        //$debugstopwatch->lap('HomeController');
 
         $workingSessions = $workingSessionApi->getListItems(
             null,
             ['query'=>[
-                'id' => $currentMaintenanceNotebook[0]['id'],
+                'id' => $maintenanceNotebook[0]['id'],
                 'page' => 1,
                 'itemsPerPage' => 100]]
         );
 
-        //dd($this->getUser());
-        //dd($currentMaintenanceNotebook[0]['id']);
+        //$event = $debugstopwatch->stop('HomeController'); 
 
-    
-        //dd($clientApi->get($this->getUser()->getConfig()["client"]));
-        //dd($maintenanceNotebookApi->getListItems(null, ['query'=>["client.id"=>4]]))
+        //dd($event);
         
         return $this->render('home/index.html.twig', [
+            'clientId' => $clientContext->getClientId(),
             'projects' => $projects,
-            'maintenanceNotebook' => $currentMaintenanceNotebook[0],
+            'maintenanceNotebook' => $maintenanceNotebook[0],
             'workingSessions' => $workingSessions
         ]);
+
+        
     }
 }
