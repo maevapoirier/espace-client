@@ -27,7 +27,7 @@ class HomeController extends AbstractController
 
         //$debugstopwatch->start('HomeController');
 
-        $projects = $projectApi->getListItems(null, ['query'=>["client.id"=>$clientContext->getClientId()]]);
+        // $projects = $projectApi->getListItems(null, ['query'=>["client.id"=>$clientContext->getClientId()]]);
 
         //$debugstopwatch->lap('HomeController');
 
@@ -52,12 +52,10 @@ class HomeController extends AbstractController
         );
 
         //$event = $debugstopwatch->stop('HomeController'); 
-
-        //dd($event);
         
         return $this->render('home/index.html.twig', [
             'clientId' => $clientContext->getClientId(),
-            'projects' => $projects,
+            // 'projects' => $projects,
             'maintenanceNotebook' => $maintenanceNotebook[0],
             'workingSessions' => $workingSessions
         ]);

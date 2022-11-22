@@ -1,20 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Hello SupportController!{% endblock %}
+{% block title %}Espace Client Azuracom{% endblock %}
+{% set title = "Demander un support" %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block content %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Projets/espace_client/src/Controller/SupportController.php'|file_link(0) }}">src/Controller/SupportController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Projets/espace_client/templates/support/index.html.twig'|file_link(0) }}">templates/support/index.html.twig</a></code></li>
-    </ul>
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Envoyer une nouvelle demande de support</h5>
+    <div class="form-group ">
+        {{ form_start(supportForm) }}
+
+        {{ form_widget(supportForm) }}
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+            <button class="btn btn-primary">Envoyer un nouveau ticket</button>
+        </div>
+        {{ form_end(supportForm) }}
+    </div>
+  </div>
 </div>
+
+
 {% endblock %}

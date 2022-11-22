@@ -25,14 +25,14 @@
 				<div class="card-body">
 					<h5 class="card-title">Mes projets</h5>
 					<div class="table-responsive">
-						<table class="table table-hover">
-							{% for project in projects %}
+						<table class="table table-hover" id="ProjectsTable">
+							{# {% for project in projects %}
 								<tr>
 									<td><img class="col" src="{{ asset("build/images/mini-logoipsum.jpg") }}" alt="logo client"></td>
 									<td>{{project.name}}</td>
 									<td>Statut du projet</td>
 								</tr>
-							{% endfor %}
+							{% endfor %} #}
 						</table>
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -101,7 +101,7 @@
 						<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>	
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button class="btn btn-primary">Je m'inscris</button>
+						<a href="https://fr.surveymonkey.com/r/C8TF7VB" class="btn btn-primary">Je m'inscris</a>
 					</div>
 				</div>
 			</div>
@@ -122,14 +122,11 @@
 							<p>du Lundi au Vendredi
 							<br>de 9h à 12h30 et de 14h à 18h</p>
 							<p class="fs-6 contact">Votre contact :<br>
-							M.
-							{{projects[0].technicalOfficer.firstname}}
-							{{projects[0].technicalOfficer.lastname}}
+							M. Thibaut DUMALIN
 							<br>
 							Tel : 04 86 40 84 28
 							<br>
-							Email :
-							{{projects[0].technicalOfficer.email}}</p>
+							Email : referent@technique.com</p>
 								<div class="social-network">
 									<a class="col" href="https://www.linkedin.com/company/azuracom/">
 										<i class="fa-brands fa-linkedin-in"></i>

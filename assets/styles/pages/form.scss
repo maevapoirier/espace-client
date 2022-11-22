@@ -2,13 +2,21 @@ label {
     display: block;
 }
 
+
+
 input, textarea {
     margin-bottom: 1rem;
     box-sizing: border-box;
-    max-width: 50%;
     width: 350px;
+}
+
+#textarea-support {
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    width: 550px;
 }
 
 label[for=file_avatar_base64] {
     display: none;
 }
+

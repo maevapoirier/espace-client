@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e080ef0ead8f07042eaba5adb0d0010",
+    "content-hash": "71a1c624736927b8d3531592fa5fb9f7",
     "packages": [
         {
             "name": "azuracom/api-sdk-bundle",

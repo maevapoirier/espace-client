@@ -1,8 +1,7 @@
+const { async } = require("regenerator-runtime");
 
 
-async function getData(apiUrl, clientId, token) {
-
-    let url = apiUrl + 'api/clients/' + clientId + '/projects?page=1&itemsPerPage=30';
+async function getData(url, token) {
 
     const options = {
         method: 'GET',
@@ -14,6 +13,7 @@ async function getData(apiUrl, clientId, token) {
 
     try {
         const response = await fetch(url, options);
+
         if (response.ok) {
             const data = await response.json();
             return data;
@@ -28,13 +28,44 @@ async function getData(apiUrl, clientId, token) {
 }
 
 
-const handleUrlProjects = (apiUrl, clientId, token) => {
-    console.log('fonction getProjects appelée');
-    
-    getData(url, token);
+const showProjects = (data) => {
+    for (let element of data) {
+
+        console.log("fonction showProjects appelée");
+        let myProject = document.createElement('tr');
+        let myLogo = document.createElement('td');
+        let myImg = document.createElement('img');
+        let myName = document.createElement('td');
+        let myStatus = document.createElement('td');
+
+        myImg.src = "build/images/mini-logoipsum.jpg";
+        myImg.alt = "logo client";
+        myName.textContent = element.name;
+        myStatus.textContent = "Statut du projet";
+
+        myLogo.appendChild(myImg);
+        myProject.appendChild(myLogo);
+        myProject.appendChild(myName);
+        myProject.appendChild(myStatus);
+
+        let projectTable = document.getElementById("ProjectsTable");
+        projectTable.appendChild(myProject);
+    }
 }
 
-const init = async () => {
+const getProjects = async (apiUrl, clientId, token) => {
+    console.log('fonction getProjects appelée');
+
+    let url = apiUrl + 'api/clients/' + clientId + '/projects?page=1&itemsPerPage=30';
+    
+    let data = await getData(url, token);
+
+    console.log(data);
+
+    showProjects(data);
+}
+
+const init = () => {
     let jsUser = document.querySelector('.js-user');
     let token = jsUser.dataset.user;
     console.log(token);
@@ -47,10 +78,8 @@ const init = async () => {
     let apiUrl = jsApi.dataset.api;
     console.log(apiUrl);
 
-    let response = await getData(apiUrl, clientId, token);
+    getProjects(apiUrl, clientId, token);
 
-    //decomposr mon json
-    //alimenter mon tableau 
 }
 
 document.addEventListener('DOMContentLoaded', init);
