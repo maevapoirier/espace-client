@@ -4,6 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
+        "azuracom/mailer-bundle": "^1.0",
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
@@ -52,6 +53,10 @@
         {
           "type": "vcs",
           "url": "git@github.com:azuracom/ApiSdkBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:azuracom/AzuracomMailerBundle.git"
         }
     ],
     "config": {

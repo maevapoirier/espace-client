@@ -1,0 +1,5 @@
+azuracom_mailer:
+    default_headers: 
+        - { name: From, content: '%mail_from%', type: mailboxList} #define a default from email for every emails
+        - { name: X-MJ-CustomId, content: 'Espace Client'} #set custom id by project for mailjet
+   
