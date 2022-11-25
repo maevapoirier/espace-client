@@ -4,10 +4,10 @@ namespace App\Zoho;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ZohodeskApiManager
+class ZohoInvoicesApiManager
 {
     public function __construct(
-        private HttpClientInterface $zohodeskApi
+        private HttpClientInterface $zohoInvoicesApi
     ) {
         $this->params = [
             'query' => [
@@ -19,7 +19,7 @@ class ZohodeskApiManager
         ];
 
         $accessToken = $this->getAccessToken();
-        $this->zohodeskApi = $zohodeskApi->withOptions([
+        $this->zohoInvoicesApi = $zohoInvoicesApi->withOptions([
             'headers' => [
                 'orgid' => $_ENV['ZOHODESK_API_ORG_ID'],
                 'Authorization' => 'Zoho-oauthtoken ' . $accessToken
@@ -29,7 +29,7 @@ class ZohodeskApiManager
 
     public function getAccessToken(): ?string {
         try {
-            $response = $this->zohodeskApi->request('POST', 'https://accounts.zoho.eu/oauth/v2/token', $this->params);
+            $response = $this->zohoInvoicesApi->request('POST', 'https://accounts.zoho.eu/oauth/v2/token', $this->params);
             $accessToken = json_decode($response->getContent(), true)['access_token'];
             return $accessToken;
         } catch (\Exception $e) {
@@ -38,12 +38,26 @@ class ZohodeskApiManager
         }
     }
 
-    public function getIssue(string $id): ?array
+    public function getInvoices(string $id): ?array
     {
         try {
-            $response = $this->zohodeskApi->request('GET', 'https://desk.zoho.eu/api/v1/tickets/search?ticketNumber=' . $id);
-            $issue = json_decode($response->getContent(), true)['data'][0];
-            return $issue;
+            $response = $this->zohoInvoicesApi->request('GET', 'https://invoice.zoho.eu/api/v3/invoices?customer_id='.$id);
+            $invoices = json_decode($response->getContent(), true)['invoices'];
+            return $invoices;
+        } catch (\Exception $e) {
+            $this->lastRequestException = $e;
+            return null;
+        }
+    }
+
+    public function getInvoicePdf(string $id)
+    {
+        try {
+            $response = $this->zohoInvoicesApi->request('GET', 'https://invoice.zoho.eu/api/v3/invoices/'.$id.'?accept=pdf');
+            $response->headers->set('Content-Type', 'application/pdf');
+            dd($response->getContent());
+            
+            return $response->getContent();
         } catch (\Exception $e) {
             $this->lastRequestException = $e;
             return null;

@@ -65,20 +65,35 @@ const getProjects = async (apiUrl, clientId, token) => {
     showProjects(data);
 }
 
-const init = () => {
-    let jsUser = document.querySelector('.js-user');
-    let token = jsUser.dataset.user;
-    console.log(token);
+const init = async () => {
+    // let jsUser = document.querySelector('.js-user');
+    // let token = jsUser.dataset.user;
+    // console.log(token);
 
-    let jsClient = document.querySelector('.js-client');
-    let clientId = jsClient.dataset.client;
-    console.log(clientId);
+    // let jsClient = document.querySelector('.js-client');
+    // let clientId = jsClient.dataset.client;
+    // console.log(clientId);
 
-    let jsApi = document.querySelector('.js-api');
-    let apiUrl = jsApi.dataset.api;
-    console.log(apiUrl);
+    // let jsApi = document.querySelector('.js-api');
+    // let apiUrl = jsApi.dataset.api;
+    // console.log(apiUrl);
 
-    getProjects(apiUrl, clientId, token);
+    // getProjects(apiUrl, clientId, token);
+
+    try {
+        const response = await fetch('projects-ajax-controller.php');
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } else {
+            console.error(`Erreur de réponse ${error}`);
+        }
+        
+    } catch (error) {
+        console.error(`Erreur de fetch ${error}`);
+    } 
 
 }
 

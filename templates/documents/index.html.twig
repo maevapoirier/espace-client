@@ -1,20 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Hello DocumentsController!{% endblock %}
+{% block title %}Espace Client Azuracom{% endblock %}
+{% set title = "Mes documents" %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block content %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Projets/espace_client/src/Controller/DocumentsController.php'|file_link(0) }}">src/Controller/DocumentsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Projets/espace_client/templates/documents/index.html.twig'|file_link(0) }}">templates/documents/index.html.twig</a></code></li>
-    </ul>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Mes documents</h5>
+    <div class="table-responsive">
+        <table class="table table-hover">
+        {% for invoice in invoices %}
+            <tr>
+                <td>Facture numéro {{invoice.invoice_number}}</td>
+                <td>Date : {{invoice.date | date("d/m/Y")}}</td>
+                <td>{{invoice.status}}</td>
+                <td>Montant TTC : {{invoice.total}}</td>
+                <td><a href="{{ path('documents_pdf', {'id': invoice.invoice_id}) }}" class="btn btn-primary">Afficher</a></td>
+            </tr>
+        {% endfor %}
+            
+        </table>
+    </div>
+  </div>
 </div>
+
+
 {% endblock %}

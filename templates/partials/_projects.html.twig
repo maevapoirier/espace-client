@@ -1,0 +1,7 @@
+{% for project in projects %}
+    <tr>
+        <td><img class="col" src="{{ asset("build/images/mini-logoipsum.jpg") }}" alt="logo client"></td>
+        <td>{{project.name}}</td>
+        <td>Statut du projet</td>
+    </tr>
+{% endfor %}
