@@ -29,11 +29,14 @@ class DocumentsController extends AbstractController
     public function getDocumentPdf(int $id, ZohoInvoicesApiManager $zohoInvoicesApiManager): Response
     {
         try {
-             $response = $zohoInvoicesApiManager->getInvoicePdf($id);
+            $response = $zohoInvoicesApiManager->getInvoicePdf($id);
         } catch (Exception $e){
             dump($e);
         }
         
-        return $this->file($response, 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
+        //return $this->file($response, 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
+        return $this->render('documents/details.html.twig', [
+            'invoice' => $response,
+        ]);
     }
 }

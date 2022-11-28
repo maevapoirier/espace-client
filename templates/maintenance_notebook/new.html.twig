@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Espace Client Azuracom
+{% endblock %}
+{% set title = "Commander un nouveau carnet" %}
+
+{% block content %}
+
+	{{ form_start(form) }}
+
+        {{ form_label(form.subject, 'Objet :') }}
+        {{ form_widget(form.subject, {'value' : "Commander un nouveau carnet"}) }}
+
+        {{ form_label(form.message, 'Message :') }}
+        {{ form_widget(form.message, {'value' : "Je souhaite commander un nouveau carnet de maintenance. Pouvez-vous me recontacter dès que possible?" }) }}
+
+        {{ form_label(form.hours, 'Nombre d\'heures souhaitées') }}
+        {{ form_widget(form.hours) }}
+
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
+            <a class="btn btn-primary" href="{{ path('app_home')}}">Annuler</a> <button class="btn btn-primary">Envoyer</button>
+        </div>
+        {{ form_end(form) }}
+            
+        </div>
+
+{% endblock %}

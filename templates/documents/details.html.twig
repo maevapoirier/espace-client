@@ -6,10 +6,10 @@
 {% block content %}
 
 <object type="application/pdf" width="100%" height="100%">
-   <param name="src" value="https://invoice.zoho.eu/api/v3/invoices/337262000000039185?accept=pdf" />
+   <param name="src" value={{invoice}} />
  
    <p>It appears your Web browser is not configured to display PDF files.
-      No worries, just <a href="https://invoice.zoho.eu/api/v3/invoices/337262000000039185?accept=pdf">click here to download the PDF file.</a>
+      No worries, just <a href={{invoice}}>click here to download the PDF file.</a>
    </p>
  
 </object>

@@ -81,12 +81,15 @@ const init = async () => {
     // getProjects(apiUrl, clientId, token);
 
     try {
-        const response = await fetch('projects-ajax-controller.php');
+        const responseView = await fetch('projects-ajax-controller');
 
-        if (response.ok) {
-            const data = await response.json();
+        if (responseView.ok) {
+            const data = await responseView.text();
             console.log(data);
-            return data;
+            
+            let projectTable = document.getElementById("ProjectsTable");
+            projectTable.innerHTML = data;
+
         } else {
             console.error(`Erreur de réponse ${error}`);
         }

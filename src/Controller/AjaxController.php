@@ -13,11 +13,15 @@ class AjaxController extends AbstractController
     #[Route('/projects-ajax-controller', name: 'projects_ajax_controller')]
     public function getProjects(ProjectApi $projectApi, ClientContext $clientContext): Response
     {
-
         $projects = $projectApi->getListItems(null, ['query'=>["client.id"=>$clientContext->getClientId()]]);
+        
 
-        return $this->render('ajax/index.html.twig', [
+        $htmlToRender =$this->renderView('partials/_projects.html.twig', [
             'projects' => $projects
         ]);
+
+        dump($htmlToRender);
+         
+        return new Response($htmlToRender);
     }
 }

@@ -5,9 +5,6 @@
 {% set title = "Tableau de bord" %}
 
 {% block content %}
-{# <pre>
-{{ dump(app.session.get('azuracom_api_token')) }}
-</pre> #}
 
 <div class="js-user"
     data-user="{{ app.session.get('azuracom_api_token') }}">
@@ -27,21 +24,40 @@
     {% endfor %}
 {% endfor %}
 
+<!-- Modal -->
+{# <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> #}
+
 	<section class="row">
 		<div class="col-lg-8">
 			<div class="card mt-3">
 				<div class="card-body">
 					<h5 class="card-title">Mes projets</h5>
-					<div class="table-responsive">
-						<table class="table table-hover" id="ProjectsTable">
-							{# {% for project in projects %}
+					<div class="table-responsive" id="ProjectsTable">
+						{# <table class="table table-hover" id="ProjectsTable">
+							{% for project in projects %}
 								<tr>
 									<td><img class="col" src="{{ asset("build/images/mini-logoipsum.jpg") }}" alt="logo client"></td>
 									<td>{{project.name}}</td>
 									<td>Statut du projet</td>
 								</tr>
-							{% endfor %} #}
-						</table>
+							{% endfor %}
+						</table> #}
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
@@ -58,7 +74,7 @@
 						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}%" aria-valuenow="{{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 					<div>
-						<button class="btn" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
+						<button class="btn btn-primary" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
 								heures restantes /{{ maintenanceNotebook.nbOrder }}h</button>
 					</div>
 						<p>Validité :
@@ -96,7 +112,11 @@
 						</div>
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<a href="mailto:jmbrunier@azuracom.com" class="btn btn-primary">Recharger mon carnet</a><a href="{{ path('app_maintenance_notebook') }}" class="btn btn-primary">Mes anciens carnets</a>
+						{# <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  							Recharger mon carnet
+						</button> #}
+						<a href="{{ path('maintenance_notebook_new') }}" class="btn btn-primary">Recharger mon carnet</a>
+						<a href="{{ path('app_maintenance_notebook') }}" class="btn btn-primary">Mes anciens carnets</a>
 					</div>
 				</div>
 			</div>

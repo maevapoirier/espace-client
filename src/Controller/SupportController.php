@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Email\SupportEmail;
 use Azuracom\MailerBundle\Sender\SenderInterface;
 use Exception;
-use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType as TypeFileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
