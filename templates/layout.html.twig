@@ -11,7 +11,8 @@
 
 
 					</div>
-					<div class="user-box">
+					<div class="d-flex">
+					<div class="user-box align-self-center">
 						{% if app.user %}
 						<div class="col text-center"><img class ="mini-avatar rounded-circle" src="{{azuracom_api_url ~ app.user.avatar}}" alt="photo de profil"></div>
 						<div class="col">
@@ -22,6 +23,7 @@
 							</h5>
 						</div>
 						{% endif %}
+					</div>
 					</div>
 					<nav class="mt-5 flex-grow-1">
 						<ul>

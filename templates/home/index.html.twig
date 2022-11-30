@@ -49,15 +49,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Mes projets</h5>
 					<div class="table-responsive" id="ProjectsTable">
-						{# <table class="table table-hover" id="ProjectsTable">
-							{% for project in projects %}
-								<tr>
-									<td><img class="col" src="{{ asset("build/images/mini-logoipsum.jpg") }}" alt="logo client"></td>
-									<td>{{project.name}}</td>
-									<td>Statut du projet</td>
-								</tr>
-							{% endfor %}
-						</table> #}
+						{# ajax content #}
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
@@ -74,11 +66,10 @@
 						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}%" aria-valuenow="{{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 					<div>
-						<button class="btn btn-primary" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
-								heures restantes /{{ maintenanceNotebook.nbOrder }}h</button>
+						<button class="btn btn-primary m-2" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
+								heures restantes /{{ maintenanceNotebook.nbOrder }}h</button> Validité : {{ maintenanceNotebook.dateEnd | date("d/m/Y") }}
 					</div>
-						<p>Validité :
-							{{ maintenanceNotebook.dateEnd | date("d/m/Y") }}</p>
+						
 
 					<div class="ws-block">
 						<h6>Sessions de travail</h6>
@@ -115,7 +106,7 @@
 						{# <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   							Recharger mon carnet
 						</button> #}
-						<a href="{{ path('maintenance_notebook_new') }}" class="btn btn-primary">Recharger mon carnet</a>
+						<a href="{{ path('maintenance_notebook_new') }}" class="btn btn-primary mr-1">Recharger mon carnet</a>
 						<a href="{{ path('app_maintenance_notebook') }}" class="btn btn-primary">Mes anciens carnets</a>
 					</div>
 				</div>
@@ -143,7 +134,7 @@
 					<h5 class="card-title">Mon agence</h5>
 					<div class="row">
 						<div class="map-responsive">
-							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4833.652926280654!2d4.891697805011862!3d43.91575408722959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b5ee03cd2a4779%3A0x670ee5c8311295de!2sAzuracom%20Agence%20Web%20Avignon!5e0!3m2!1sfr!2sfr!4v1668503121138!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+							<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1437.0254033787594!2d4.892526577829132!3d43.916922189228046!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x670ee5c8311295de!2sAzuracom%20Agence%20Web%20Avignon!5e0!3m2!1sfr!2sfr!4v1669796890882!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 						</div>	
 							<p class="card-text">Technopôle Agroparc<br>
 							Le Victoria – C01<br>149, Rue Jean Dausset<br>84140 Avignon</p>
