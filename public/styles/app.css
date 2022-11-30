@@ -1,11 +1,9 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~@fortawesome/fontawesome-free/css/all.css";
-@import "components/header.scss";
-@import "components/sidebar.scss";
-@import "components/footer.scss";
-@import "pages/connexion.scss";
-@import "pages/form.scss";
-@import "colors/colors.scss";
+@import "components/header.css";
+@import "components/sidebar.css";
+@import "components/footer.css";
+@import "pages/connexion.css";
+@import "pages/form.css";
+@import "colors/colors.css";
 
 
 body {
@@ -29,8 +27,10 @@ body {
   color: var(--secondary-ligth-grey);
   transform: translateX(-100%);
   
+}
 
-  @media screen and (min-width: 992px) {
+@media screen and (min-width: 992px) {
+  .sidebar {
     display:flex;
     flex-direction: column;
     position: sticky;
@@ -41,29 +41,35 @@ body {
     box-shadow: 3px 0px 5px lightgrey;
     transform: translateX(0);
   }
+}
 
-  &.open {
-    transform: translateX(0);
-    transition: transform 250ms ease;
-  }
 
-  &.close {
-    transform: translateX(-100%);
-    transition: transform 250ms ease;
-  }
+.sidebar.open {
+  transform: translateX(0);
+  transition: transform 250ms ease;
+}
 
-  &.closed {
-    transform: translateX(-100%);
-    transition: none;
-  }
+.sidebar.close {
+  transform: translateX(-100%);
+  transition: transform 250ms ease;
+
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
+  transition: none;
+
 }
 
 .sidebar h2 {
   display: none;
+}
 
-  @media screen and (min-width: 992px) {
+@media screen and (min-width: 992px) {
+  .sidebar h2 {
     display: block;
   }
+  
 }
 
 
@@ -195,11 +201,10 @@ body .card .card-body .card-title {
 .ws-block {
   font-size: small;
   display: none;
+}
 
-  &.open {
-    display: block;
-  }
-
+.ws-block.open {
+  display: block;
 }
 
 section {
