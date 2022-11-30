@@ -30,13 +30,14 @@ class DocumentsController extends AbstractController
     {
         try {
             $response = $zohoInvoicesApiManager->getInvoicePdf($id);
+            //dd($response);
         } catch (Exception $e){
             dump($e);
         }
         
-        //return $this->file($response, 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
-        return $this->render('documents/details.html.twig', [
-            'invoice' => $response,
-        ]);
+        return new Response($response, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="file.pdf"'
+]);
     }
 }
