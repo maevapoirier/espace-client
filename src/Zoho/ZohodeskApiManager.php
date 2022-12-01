@@ -50,5 +50,17 @@ class ZohodeskApiManager
         }
     }
 
+    public function getIssues(string $id): ?array
+    {
+        try {
+            $response = $this->zohodeskApi->request('GET', 'https://desk.zoho.eu/api/v1/tickets/search?ticketNumber=' . $id);
+            $issue = json_decode($response->getContent(), true)['data'][0];
+            return $issue;
+        } catch (\Exception $e) {
+            $this->lastRequestException = $e;
+            return null;
+        }
+    }
+
    
 }

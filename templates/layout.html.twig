@@ -1,85 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container-fluid">
-		<div class="row">
-			<div class="main-container d-flex">
-				<div class="sidebar pt-5" id="navbar">
-					<div class="header-box mb-5 text-center">
-						<i class="fa-solid fa-circle-xmark d-block d-lg-none fa-2xl" id="close-btn"></i>
-						<h2 class="text-center">Espace Client</h2>
-
-
-					</div>
-					<div class="d-flex">
-					<div class="user-box align-self-center">
-						{% if app.user %}
-						<div class="col text-center"><img class ="mini-avatar rounded-circle" src="{{azuracom_api_url ~ app.user.avatar}}" alt="photo de profil"></div>
-						<div class="col">
-							<h5 class="user mb-5 text-center">
-								{{app.user.lastName}} {{app.user.firstName}}
-								{# TODO : ajouter les notifications #}
-								{{client_context.data.name}}
-							</h5>
-						</div>
-						{% endif %}
-					</div>
-					</div>
-					<nav class="mt-5 flex-grow-1">
-						<ul>
-							<li>
-								<a href="{{ path('app_home')}}" class="text-decoration-none">
-									<i class="fa-solid fa-house-chimney"></i>
-									<p>
-										Tableau de bord</p>
-								</a>
-							</li>
-							<li>
-								<a href="{{ path('app_client') }}" class="text-decoration-none">
-									<i class="fa-solid fa-user"></i>
-									<p>
-										Mon profil</p>
-								</a>
-							</li>
-							<li>
-								<a href="{{ path('app_documents') }}" class="text-decoration-none">
-									<i class="fa-solid fa-folder-open"></i>
-									<p>
-										Mes documents</p>
-								</a>
-							</li>
-							<li>
-								<a href="{{ path('app_project')}}" class="text-decoration-none">
-									<i class="fa-solid fa-briefcase"></i>
-									<p>
-										Mes projets</p>
-								</a>
-							</li>
-							<li>
-								<a href="{{ path('app_support')}}" class="text-decoration-none">
-									<i class="fa-solid fa-gear"></i>
-								<p>Assistance</p>
-								</a>
-							</li>
-
-						</ul>
-
-					</nav>
-					<a href="{{ path('app_logout') }}" class="text-decoration-none logout btn btn-primary" id="lougout">Déconnexion</a>
-				</div>
-				<div class="main">
+	{% include "partials/_menu.html.twig" %}
 					{% block header %}
 						{% include "partials/_header.html.twig" %}
 					{% endblock %}
 					<main>
 						{% block content %}{% endblock %}
-
 					</main>
 					{% block footer %}
 						{% include "partials/_footer.html.twig" %}
 					{% endblock %}
 				</div>
-			</div>	
-		</div>	
+			</div>
+		</div>
 	</div>
 {% endblock %}

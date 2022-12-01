@@ -52,44 +52,36 @@ class MaintenanceNotebookController extends AbstractController
         ]);
     }
 
-    #[Route('/renouveler-mon-carnet', name: 'maintenance_notebook_new')]
-    public function newMaintenanceNotebook(Request $request, SenderInterface $sender): Response
+    #[Route('/nouveau-carnet', name: 'maintenance_notebook_new2')]
+    public function newMaintenanceNotebook2(Request $request, SenderInterface $sender, ClientContext $clientContext): Response
     {
-        $form =$this->createFormBuilder()
-        ->add('subject',TextType::class)
-        ->add('message',TextareaType::class, [
-            'attr' => ['rows' => 10]
-            ])
-        ->add('hours', NumberType::class)
-        ->getForm();
+        $hours = $request->request->get('hours', null);
+        
+        try {
+            $sender->send(
+                MaintenanceNotebookEmail::getCode(),
+                ['user_email' => $this->getUser()->getUserIdentifier(),
+                'user_name' => $this->getUser()->getFirstName() . " " . $this->getUser()->getLastName(),
+                'client' => $clientContext->getData()['name'],
+                'hours' => $hours
+                ]
+            );
 
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+            $this->addFlash(
+                'success',
+                'Votre demande a bien été prise en compte. Nous reviendrons vers vous dans les meilleurs délais.'
+            );
 
-            try {
-                $sender->send(
-                    MaintenanceNotebookEmail::getCode(),
-                    $form->getData()+['user_email' => $this->getUser()->getUserIdentifier()]
-                );
+        } catch (Exception $e) {
 
-                $this->addFlash(
-                    'success',
-                    'Votre demande a bien été prise en compte. Nous reviendrons vers vous dans les meilleurs délais.'
-                );
-
-            } catch (Exception $e) {
-
-                $this->addFlash(
-                    'danger',
-                    'Votre demande n\'a pas pu aboutir. Merci de contacter l\'administrateur.');
-            }
-                 
-            return $this->redirectToRoute('app_home', []);
+            $this->addFlash(
+                'danger',
+                'Votre demande n\'a pas pu aboutir. Merci de contacter l\'administrateur.');
         }
-
-        return $this->render('maintenance_notebook/new.html.twig', [
-            'form' => $form->createView()
-        ]);
+                
+        return $this->redirectToRoute('app_home', []);
+        
     }
+
 
 }

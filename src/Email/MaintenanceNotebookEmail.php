@@ -10,23 +10,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class MaintenanceNotebookEmail extends AbstractEmail
 {
-    private $mailAdmin;
+    private $mailJeanMarie;
     private $dir;
 
-    public function __construct(KernelInterface $kernel,$mailAdmin)
+    public function __construct(KernelInterface $kernel, $mailJeanMarie)
     {
         //call parent construct !
         parent::__construct();
-        $this->mailAdmin = $mailAdmin;
+        $this->mailJeanMarie = $mailJeanMarie;
         $this->dir = $kernel->getProjectDir().'/public/uploads';
     }
 
     public function configure(): EmailInterface
     {
-        $this->subject("[Espace client] Demande de nouveau carnet : ".$this->getData()['subject']);
-        $this->to($this->mailAdmin);
-        $this->cc($this->getData()['user_email']);
-
+        $this->subject("[Espace client] Demande de nouveau carnet : ");
+        $this->to($this->mailJeanMarie);
         $this->htmlTemplate("email/maintenanceNotebook.html.twig");
         
         return $this;
@@ -38,8 +36,6 @@ class MaintenanceNotebookEmail extends AbstractEmail
         $metadata->addPropertyConstraint('data', new Assert\Collection([
             'allowExtraFields' => true,
             'fields'=>[
-                'subject' => new Assert\Type('string'),
-                'message' => new Assert\Type('string'),
                 'user_email' => new Assert\Email(),
             ]
         ]));

@@ -5,6 +5,22 @@
 @import "pages/form.css";
 @import "colors/colors.css";
 
+.btn-primary {
+  --bs-btn-color: #fff !important;
+    --bs-btn-bg: var(--main-blue) !important;
+    --bs-btn-border-color: var(--main-blue) !important;
+    --bs-btn-hover-color: #fff !important;
+    --bs-btn-hover-bg: #0b5ed7 !important;
+    --bs-btn-hover-border-color: #0a58ca !important;
+    --bs-btn-focus-shadow-rgb: 49,132,253 !important;
+    --bs-btn-active-color: #fff !important;
+    --bs-btn-active-bg: #0a58ca !important;
+    --bs-btn-active-border-color: #0a53be !important;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    --bs-btn-disabled-color: #fff !important;
+    --bs-btn-disabled-bg: var(--main-blue) !important;
+    --bs-btn-disabled-border-color: var(--main-blue) !important;
+}
 
 body {
   background-color: white;
@@ -72,6 +88,9 @@ body {
   
 }
 
+.sidebar .d-flex {
+  justify-content: center !important;
+}
 
 #close-btn {
   position: fixed;

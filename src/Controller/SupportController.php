@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Email\SupportEmail;
+use App\Zoho\ZohodeskApiManager;
 use Azuracom\MailerBundle\Sender\SenderInterface;
 use Exception;
+use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType as TypeFileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,7 +18,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class SupportController extends AbstractController
 {
     #[Route('/support', name: 'app_support')]
-    public function index(Request $request, SenderInterface $sender): Response
+    public function index(ZohodeskApiManager $zohodeskApiManager): Response
+    {
+        try {
+            $tickets = $zohodeskApiManager->getIssues();
+        } catch (Exception $e) {
+            dump($e);
+        }
+
+        
+        return $this->render('support/index.html.twig', [
+            
+        ]);
+    }
+
+    #[Route('/support-nouveau-ticket', name: 'support_new')]
+    public function create(Request $request, SenderInterface $sender): Response
     {
         $form =$this->createFormBuilder()
         ->add('subject',TextType::class)
@@ -55,6 +72,7 @@ class SupportController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
 
 
 }
