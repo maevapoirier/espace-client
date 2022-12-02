@@ -54,87 +54,82 @@
 
 
 
-	<section class="row">
-		<div class="col-lg-8">
-			<div class="card mt-3">
-				<div class="card-body">
-					<h5 class="card-title">Mes projets</h5>
-					<div class="table-responsive" id="ProjectsTable">
-						{# ajax content #}
-					</div>
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
-					</div>
+<section class="row">
+	<div class="col-lg-8">
+		<div class="card mt-3">
+			<div class="card-body">
+				<h5 class="card-title">Mes projets</h5>
+				<div class="table-responsive" id="ProjectsTable">
+					{# ajax content #}
 				</div>
-			</div>
-			
-			<div class="card mt-3 ">
-				<div class="card-body">
-					<h5 class="card-title">Carnet de maintenance</h5>
-					<div class="progress mt-2 mb-2">
-						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}%" aria-valuenow="{{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-					<div>
-						<button class="btn btn-primary m-2" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
-								heures restantes /{{ maintenanceNotebook.nbOrder }}h</button> Validité : {{ maintenanceNotebook.dateEnd | date("d/m/Y") }}
-					</div>
-						
-
-					<div class="ws-block">
-						<h6>Sessions de travail</h6>
-						<div class="table-responsive">
-							<table class="table table-hover">
-								<tr>
-									<th>Date</th>
-									<th>Projet</th>
-									<th>Référent technique</th>
-									<th>Type</th>
-									<th>Description</th>
-									<th>Durée en heures</th>
-								</tr>
-									{% for workingSession in workingSessions %}
-										<tr>
-											<td>{{ workingSession.date | date("d/m/Y") }}</td>
-											<td>{{ workingSession.project.name }}</td>
-											<td>{{ workingSession.user.firstname }}
-												{{ workingSession.user.lastname }}</td>
-											<td>{{ workingSession.type }}</td>
-											<td>{{ workingSession.description }}</td>
-											{% if workingSession.timeUnit == "hour" %}
-												<td>{{ workingSession.time }}</td>
-											{% endif %}
-											{% if workingSession.timeUnit == "adr" %}
-												<td>{{ workingSession.time | hour }}</td>
-											{% endif %}
-										</tr>
-									{% endfor %}
-							</table>
-						</div>
-					</div>
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  							Recharger mon carnet
-						</button>
-						<a href="{{ path('app_maintenance_notebook') }}" class="btn btn-primary">Mes anciens carnets</a>
-					</div>
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<a href="{{ path('app_project')}}" class="btn btn-primary">Consulter mes projets</a>
 				</div>
 			</div>
 		</div>
 
-		<aside class="col-lg-4">
-			<div class="card mt-3" id="SEO">
-				<div class="card-body d-flex flex-column justify-content-between" id="SEO">
-					<div>
-						<h5 class="card-title">OPERATION SEO</h5>
-						<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>	
-					</div>
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<a href="https://fr.surveymonkey.com/r/C8TF7VB" class="btn btn-primary">Je m'inscris</a>
+		<div class="card mt-3 ">
+			<div class="card-body">
+				<h5 class="card-title">Carnet de maintenance</h5>
+				<div class="progress mt-2 mb-2">
+					<div class="progress-bar bg-warning" role="progressbar" style="width: {{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}%" aria-valuenow="{{ maintenanceNotebook.nbRemain | percent(maintenanceNotebook.nbOrder) }}" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+				<div>
+					<button class="btn btn-primary m-2" id="btnWS" title="Consulter les sessions">{{ maintenanceNotebook.nbRemain }}
+							heures restantes /{{ maintenanceNotebook.nbOrder }}h</button> Validité : {{ maintenanceNotebook.dateEnd | date("d/m/Y") }}
+				</div>
+				<div class="ws-block">
+					<h6>Sessions de travail</h6>
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<tr>
+								<th>Date</th>
+								<th>Projet</th>
+								<th>Référent technique</th>
+								<th>Type</th>
+								<th>Description</th>
+								<th>Durée en heures</th>
+							</tr>
+								{% for workingSession in workingSessions %}
+									<tr>
+										<td>{{ workingSession.date | date("d/m/Y") }}</td>
+										<td>{{ workingSession.project.name }}</td>
+										<td>{{ workingSession.user.firstname }} {{ workingSession.user.lastname }}</td>
+										<td>{{ workingSession.type }}</td>
+										<td>{{ workingSession.description }}</td>
+										{% if workingSession.timeUnit == "hour" %}
+											<td>{{ workingSession.time }}</td>
+										{% endif %}
+										{% if workingSession.timeUnit == "adr" %}
+											<td>{{ workingSession.time | hour }}</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+						</table>
 					</div>
 				</div>
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Recharger mon carnet</button>
+					<a href="{{ path('app_maintenance_notebook') }}" class="btn btn-primary">Mes anciens carnets</a>
+				</div>
 			</div>
-		</aside>
-	</section>
+		</div>
+	</div>
+
+	<aside class="col-lg-4">
+		<div class="card mt-3" id="SEO">
+			<div class="card-body d-flex flex-column justify-content-between" id="SEO">
+				<div>
+					<h5 class="card-title">OPERATION SEO</h5>
+					<p class="card-text">Ce mois-ci, profitez d'un diagnostic SEO OFFERT.</p>	
+				</div>
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<a href="https://fr.surveymonkey.com/r/C8TF7VB" class="btn btn-primary">Je m'inscris</a>
+				</div>
+			</div>
+		</div>
+	</aside>
+</section>
 
 	<section class="row">
 		<div class="col-xl-6">
@@ -144,28 +139,34 @@
 					<div class="row">
 						<div class="map-responsive">
 							<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1437.0254033787594!2d4.892526577829132!3d43.916922189228046!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x670ee5c8311295de!2sAzuracom%20Agence%20Web%20Avignon!5e0!3m2!1sfr!2sfr!4v1669796890882!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="card-text">Technopôle Agroparc<br>
+								Le Victoria – C01<br>149, Rue Jean Dausset<br>84140 Avignon</p>
+								<p>du Lundi au Vendredi
+								<br>de 9h à 12h30 et de 14h à 18h</p>
+							</div>
+							<div class="col-sm-6">
+								<p class="fs-6 contact">Votre contact :<br>
+								M. Thibaut DUMALIN
+								<br>
+								Tel : 04 86 40 84 28
+								<br>
+								Email : referent@technique.com</p>
+									<div class="social-network d-flex justify-content-end">
+										<a class="p-2" href="https://www.linkedin.com/company/azuracom/">
+											<i class="fa-brands fa-linkedin-in"></i>
+										</a>   
+										<a class="p-2" href="https://fr-fr.facebook.com/agence.azuracom/">
+											<i class="fa-brands fa-facebook-f"></i>
+										</a>   
+										<a class="p-2" href="https://www.instagram.com/agenceazuracom/?hl=fr">
+											<i class="fa-brands fa-instagram"></i>
+										</a>  
+									</div>
+							</div>
 						</div>	
-							<p class="card-text">Technopôle Agroparc<br>
-							Le Victoria – C01<br>149, Rue Jean Dausset<br>84140 Avignon</p>
-							<p>du Lundi au Vendredi
-							<br>de 9h à 12h30 et de 14h à 18h</p>
-							<p class="fs-6 contact">Votre contact :<br>
-							M. Thibaut DUMALIN
-							<br>
-							Tel : 04 86 40 84 28
-							<br>
-							Email : referent@technique.com</p>
-								<div class="social-network">
-									<a class="col" href="https://www.linkedin.com/company/azuracom/">
-										<i class="fa-brands fa-linkedin-in"></i>
-									</a>   
-									<a class="col" href="https://fr-fr.facebook.com/agence.azuracom/">
-										<i class="fa-brands fa-facebook-f"></i>
-									</a>   
-									<a class="col" href="https://www.instagram.com/agenceazuracom/?hl=fr">
-										<i class="fa-brands fa-instagram"></i>
-									</a>  
-								</div>
 					</div>
 				</div>
 			</div>

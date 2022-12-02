@@ -71,15 +71,12 @@ class ClientController extends AbstractController
     {
         $passwordForm = $this->createForm(EditPasswordType::class);
         $passwordForm->handleRequest($request);
-        
-
         if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
             $resultForm = $passwordForm->getData();
             if ( $resultForm['newPassword'] == $resultForm['newPassword2']
-                & $securityApi->loginCheck('app_client', $this->getUser()->getUserIdentifier(), $resultForm['oldPassword']) != false ) {
-                    
+                & $securityApi->loginCheck('app_client', $this->getUser()->getUserIdentifier(), $resultForm['oldPassword']) != false ) 
+                {
                     $result = $userApi->update(['password' => $resultForm['newPassword']], $this->getUser()->getId(), []);
-                    //dd($result);
                     if ($result == true) {
                         $this->addFlash(
                             'success',
@@ -91,27 +88,24 @@ class ClientController extends AbstractController
                             'Votre Mot de passe ne peut pas être modifié pour le moment. Contactez le support.'
                         );
                     }
-
                         return $this->redirectToRoute('app_client', []);
-                        } else {
-                            if ($resultForm['newPassword'] == $resultForm['newPassword2']) {
-                                $this->addFlash(
-                                    'danger',
-                                    'Votre ancien mot de passe est incorrect. Veuillez réessayer.'
-                                );
-                            } else {
-                                $this->addFlash(
-                                    'danger',
-                                    'Les mots de passe ne sont pas identiques.'
-                                );
-                            }
-                                
-                            return $this->render('client/editPassword.html.twig', [
-                                'passwordForm' => $passwordForm->createView()
-                            ]);
-                            }
+                } else {
+                    if ($resultForm['newPassword'] == $resultForm['newPassword2']) {
+                        $this->addFlash(
+                            'danger',
+                            'Votre ancien mot de passe est incorrect. Veuillez réessayer.'
+                        );
+                    } else {
+                        $this->addFlash(
+                            'danger',
+                            'Les mots de passe ne sont pas identiques.'
+                        );
+                    }
+                    return $this->render('client/editPassword.html.twig', [
+                        'passwordForm' => $passwordForm->createView()
+                    ]);
+                    }
         }
-
         return $this->render('client/editPassword.html.twig', [
             'passwordForm' => $passwordForm->createView()
         ]);

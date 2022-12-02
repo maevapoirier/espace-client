@@ -29,7 +29,6 @@ class DocumentsController extends AbstractController
     {
         try {
             $response = $zohoInvoicesApiManager->getInvoicePdf($id);
-            //dd($response);
         } catch (Exception $e){
             dump($e);
         }
@@ -37,6 +36,6 @@ class DocumentsController extends AbstractController
         return new Response($response, 200, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="file.pdf"'
-]);
+        ]);
     }
 }
