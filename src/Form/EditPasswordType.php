@@ -40,7 +40,7 @@ class EditPasswordType extends AbstractType
         ->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'constraints' => [
-                new Length(min:8, minMessage:"Le mot de passe doit comporter au minimum {{ value }} caractères")
+                new Length(min:8, minMessage:"Le mot de passe doit comporter au minimum 8 caractères")
             ],
             'invalid_message' => 'Les 2 mots de passe doivent être identiques.',
             'options' => ['attr' => ['class' => 'password-field']],

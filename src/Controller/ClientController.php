@@ -75,8 +75,20 @@ class ClientController extends AbstractController
         if ($passwordForm->isSubmitted() && $passwordForm->isValid()) 
         {
             $resultForm = $passwordForm->getData();
-            $result = $userApi->update(['password' => $resultForm['newPassword']], $this->getUser()->getId(), []);
-            // add flash message et redirection
+            $result = $userApi->update(['password' => $resultForm['password']], $this->getUser()->getId(), []);
+            if ($result = true) {
+                $this->addFlash(
+                    'success',
+                    'Votre mot de passe a bien été modifié.'
+                );  
+            } else {
+                    $this->addFlash(
+                        'danger',
+                        'Echec de modification du mot de passe : veuillez contacter votre administrateur.'
+                    );  
+            }
+            return $this->redirectToRoute('app_client', [
+            ]);
         }
     
         return $this->render('client/editPassword.html.twig', [
