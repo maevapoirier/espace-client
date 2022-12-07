@@ -3,12 +3,14 @@
     background-color: white;
     min-height: 200px;
     background-image: url("../../img/logo.jpg");
+    image-rendering: optimizeQuality;
     background-position: 30px center ;
     background-repeat: no-repeat;
     background-size: cover;
     padding-left: 30px;
     margin-left: 5px;
 }
+
 
 @media all and (max-width: 650px) {
     .header {

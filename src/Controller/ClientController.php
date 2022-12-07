@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ClientController extends AbstractController
 {
@@ -24,7 +25,7 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/modifierProfil', name: 'app_client_edit')]
+    #[Route('/modifier-profil', name: 'app_client_edit')]
     public function edit(Request $request, UserApi $userApi, ClientApi $clientApi, ClientContext $clientContext): Response
     {
         $clientForm = $this->createForm(ClientType::class);
@@ -66,49 +67,22 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/modifierMotDePasse', name: 'app_client_edit_password')]
+    #[Route('/modifier-mot-de-passe', name: 'app_client_edit_password')]
     public function editPassword(Request $request, SecurityApi $securityApi, UserApi $userApi): Response
     {
         $passwordForm = $this->createForm(EditPasswordType::class);
         $passwordForm->handleRequest($request);
-        if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
+        if ($passwordForm->isSubmitted() && $passwordForm->isValid()) 
+        {
             $resultForm = $passwordForm->getData();
-            if ( $resultForm['newPassword'] == $resultForm['newPassword2']
-                & $securityApi->loginCheck('app_client', $this->getUser()->getUserIdentifier(), $resultForm['oldPassword']) != false ) 
-                {
-                    $result = $userApi->update(['password' => $resultForm['newPassword']], $this->getUser()->getId(), []);
-                    if ($result == true) {
-                        $this->addFlash(
-                            'success',
-                            'Votre Mot de passe a bien été modifié.'
-                        );
-                    } else {
-                        $this->addFlash(
-                            'danger',
-                            'Votre Mot de passe ne peut pas être modifié pour le moment. Contactez le support.'
-                        );
-                    }
-                        return $this->redirectToRoute('app_client', []);
-                } else {
-                    if ($resultForm['newPassword'] == $resultForm['newPassword2']) {
-                        $this->addFlash(
-                            'danger',
-                            'Votre ancien mot de passe est incorrect. Veuillez réessayer.'
-                        );
-                    } else {
-                        $this->addFlash(
-                            'danger',
-                            'Les mots de passe ne sont pas identiques.'
-                        );
-                    }
-                    return $this->render('client/editPassword.html.twig', [
-                        'passwordForm' => $passwordForm->createView()
-                    ]);
-                    }
+            $result = $userApi->update(['password' => $resultForm['newPassword']], $this->getUser()->getId(), []);
+            // add flash message et redirection
         }
+    
         return $this->render('client/editPassword.html.twig', [
             'passwordForm' => $passwordForm->createView()
         ]);
+
     }
 
     #[Route('/modifier-image-profil', name: 'app_edit_avatar')]

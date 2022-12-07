@@ -24,7 +24,8 @@
 
 body {
   background-color: white;
-    
+  -moz-osx-font-smoothing: grayscale;   /* Firefox */
+  -webkit-font-smoothing: antialiased; /* WebKit  */
 } 
 
 * {
@@ -261,5 +262,6 @@ news-img {
 }
 
 #mini-logoipsum {
-  max-width: 100px;
+  max-width: 150px;
+  min-width: 100px;
 }

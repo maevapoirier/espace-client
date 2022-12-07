@@ -53,14 +53,15 @@ class ZohodeskApiManager
     public function getIssues(string $id): ?array
     {
         try {
-            $response = $this->zohodeskApi->request('GET', 'https://desk.zoho.eu/api/v1/tickets/search?ticketNumber=' . $id);
-            $issue = json_decode($response->getContent(), true)['data'][0];
-            return $issue;
+            $response = $this->zohodeskApi->request('GET', 'https://desk.zoho.eu/api/v1/tickets');
+            $issues = $response->getContent();
+            return $issues;
         } catch (\Exception $e) {
             $this->lastRequestException = $e;
             return null;
         }
     }
 
-   
+   //ZohoInvoice.invoices.READ, Desk.tickets.ALL
+
 }

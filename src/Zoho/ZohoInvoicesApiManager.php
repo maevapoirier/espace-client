@@ -54,8 +54,6 @@ class ZohoInvoicesApiManager
     {
         try {
             $response = $this->zohoInvoicesApi->request('GET', 'https://invoice.zoho.eu/api/v3/invoices/'.$id.'?accept=pdf');
-            // $response->headers->set('Content-Type', 'application/pdf');
-            
             return $response->getContent();
         } catch (\Exception $e) {
             $this->lastRequestException = $e;
@@ -63,5 +61,4 @@ class ZohoInvoicesApiManager
         }
     }
 
-   
 }

@@ -33,6 +33,15 @@
 		</div>
 	</div>
 
+{% for label, messages in app.flashes(['success', 'danger']) %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
 
 {# <div class="js-user"
     data-user="{{ app.session.get('azuracom_api_token') }}">
@@ -43,16 +52,6 @@
 <div class="js-api"
 	data-api="{{ azuracom_api_url }}">
 </div> #}
-
-{% for label, messages in app.flashes(['success', 'danger']) %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
-
 
 <section class="row">
 	<div class="col-lg-8">

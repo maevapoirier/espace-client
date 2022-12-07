@@ -8,23 +8,9 @@
 
 <div class="card mb-3">
   <div class="card-body">
-    <h5 class="card-title">Envoyer une nouvelle demande de support</h5>
+    <h5 class="card-title">Mes tickets</h5>
     <div class="form-group ">
-        {{ form_start(form) }}
-
-        {{ form_label(form.subject, 'Objet') }}
-        {{ form_widget(form.subject) }}
-
-        {{ form_label(form.message, 'Message') }}
-        {{ form_widget(form.message) }}
-
-        {{ form_label(form.attached_file, 'Pièce jointe') }}
-        {{ form_widget(form.attached_file) }}
-
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end align-text-bottom">
-            <button class="btn btn-primary">Envoyer un nouveau ticket</button>
-        </div>
-        {{ form_end(form) }}
+        Ici la liste des tickets
     </div>
   </div>
 </div>

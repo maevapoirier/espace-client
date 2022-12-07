@@ -12,6 +12,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('percent', [$this, 'percent']),
             new TwigFilter('hour', [$this, 'convertInHour']),
+            new TwigFilter('french', [$this, 'translateInFrench']),
         ];
     }
 
@@ -23,5 +24,15 @@ class AppExtension extends AbstractExtension
     public function convertInHour(float $number): float
     {
         return $number * 8;
+    }
+
+    public function translateInFrench(string $status): string
+    {
+        if ($status == "overdue") {
+            return "A régler";
+        }
+        if ($status == "paid") {
+            return "Acquitée";
+        }
     }
 }

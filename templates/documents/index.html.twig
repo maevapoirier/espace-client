@@ -16,8 +16,8 @@
             <tr>
                 <td>Facture numéro {{invoice.invoice_number}}</td>
                 <td>Date : {{invoice.date | date("d/m/Y")}}</td>
-                <td>{{invoice.status}}</td>
-                <td>Montant TTC : {{invoice.total}}</td>
+                <td>{{invoice.status | french}}</td>
+                <td>Montant TTC : {{invoice.total}} €</td>
                 <td><a href="{{ path('documents_pdf', {'id': invoice.invoice_id}) }}" class="btn btn-primary">Afficher</a></td>
             </tr>
         {% endfor %}

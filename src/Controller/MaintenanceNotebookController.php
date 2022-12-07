@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MaintenanceNotebookController extends AbstractController
 {
-    #[Route('/anciensCarnets', name: 'app_maintenance_notebook')]
+    #[Route('/anciens-carnets', name: 'app_maintenance_notebook')]
     public function index(MaintenanceNotebookApi $maintenanceNotebookApi, ClientContext $clientContext, WorkingSessionApi $workingSessionApi): Response
     {
         $maintenanceNotebooks = $maintenanceNotebookApi->getListItems(

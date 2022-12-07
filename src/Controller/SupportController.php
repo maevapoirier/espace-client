@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Context\ClientContext;
 use App\Email\SupportEmail;
 use App\Zoho\ZohodeskApiManager;
 use Azuracom\MailerBundle\Sender\SenderInterface;
@@ -21,7 +22,8 @@ class SupportController extends AbstractController
     public function index(ZohodeskApiManager $zohodeskApiManager): Response
     {
         try {
-            $tickets = $zohodeskApiManager->getIssues();
+            $tickets = $zohodeskApiManager->getIssues(1);
+            dump($tickets);
         } catch (Exception $e) {
             dump($e);
         }
@@ -33,7 +35,7 @@ class SupportController extends AbstractController
     }
 
     #[Route('/support-nouveau-ticket', name: 'support_new')]
-    public function create(Request $request, SenderInterface $sender): Response
+    public function create(Request $request, SenderInterface $sender, ClientContext $clientContext): Response
     {
         $form =$this->createFormBuilder()
         ->add('subject',TextType::class)
@@ -49,7 +51,11 @@ class SupportController extends AbstractController
             try {
                 $sender->send(
                     SupportEmail::getCode(),
-                    $form->getData()+['user_email' => $this->getUser()->getUserIdentifier()]
+                    $form->getData()+[
+                        'user_email' => $this->getUser()->getUserIdentifier(),
+                        'user_name' => $this->getUser()->getFirstName() . " " . $this->getUser()->getLastName(),
+                        'client' => $clientContext->getData()['name']
+                        ]
                 );
 
                 $this->addFlash(
@@ -68,7 +74,7 @@ class SupportController extends AbstractController
             return $this->redirectToRoute('app_home', []);
         }
 
-        return $this->render('support/index.html.twig', [
+        return $this->render('support/new.html.twig', [
             'form' => $form->createView()
         ]);
     }

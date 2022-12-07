@@ -26,9 +26,8 @@ class SupportEmail extends AbstractEmail
         $this->subject("[Espace client] Demande de support: ".$this->getData()['subject']);
         $this->to($this->mailAdmin);
         $this->cc($this->getData()['user_email']);
-
         $this->htmlTemplate("email/support.html.twig");
-        
+
         //attachment
         if ($this->getData()['attached_file']){
 
@@ -37,7 +36,6 @@ class SupportEmail extends AbstractEmail
                 $this->getData()['attached_file']->getClientOriginalName()
         );
         }
-        
         return $this;
     }
 
