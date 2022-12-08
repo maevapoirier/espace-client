@@ -3,15 +3,13 @@
 namespace App\Controller;
 
 use App\Context\ClientContext;
+use Azuracom\ApiSdkBundle\ApiClient\AgencyApi;
 use Azuracom\ApiSdkBundle\ApiClient\MaintenanceNotebookApi;
 use Azuracom\ApiSdkBundle\ApiClient\ProjectApi;
 use Azuracom\ApiSdkBundle\ApiClient\WorkingSessionApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 class HomeController extends AbstractController
 {
@@ -22,15 +20,13 @@ class HomeController extends AbstractController
         ClientContext $clientContext,
         MaintenanceNotebookApi $maintenanceNotebookApi,
         WorkingSessionApi $workingSessionApi,
-        Stopwatch $debugstopwatch
+        AgencyApi $agencyApi,
         ): Response
     {
-
-        //$debugstopwatch->start('HomeController');
-
-        // $projects = $projectApi->getListItems(null, ['query'=>["client.id"=>$clientContext->getClientId()]]);
-
-        //$debugstopwatch->lap('HomeController');
+        $projects = $projectApi->getListItems(null, ['query'=>[
+            "client.id"=>$clientContext->getClientId(), 
+            "order[dateEnd]" => "desc"
+            ]]);
 
         $maintenanceNotebook = $maintenanceNotebookApi->getListItems(
             null,
@@ -42,8 +38,6 @@ class HomeController extends AbstractController
                 ]]
         );
 
-        //$debugstopwatch->lap('HomeController');
-
         $workingSessions = $workingSessionApi->getListItems(
             null,
             ['query'=>[
@@ -52,13 +46,16 @@ class HomeController extends AbstractController
                 'itemsPerPage' => 100]]
         );
 
-        //$event = $debugstopwatch->stop('HomeController'); 
+        $agency = $agencyApi->get(1, []);
+
+        //dd($projects);
         
         return $this->render('home/index.html.twig', [
             'clientId' => $clientContext->getClientId(),
-            // 'projects' => $projects,
+            'projects' => $projects,
             'maintenanceNotebook' => $maintenanceNotebook[0],
-            'workingSessions' => $workingSessions
+            'workingSessions' => $workingSessions, 
+            'agency' => $agency
         ]);
 
         
